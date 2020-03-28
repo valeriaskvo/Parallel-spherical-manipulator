@@ -20,3 +20,12 @@ H_plat=R_T(Rx(beta_2))*Ty(-L_plat)*R_T(Rz(eta_i));
 H_full=H_base*H_link_1*H_link_2*H_plat
 q_leg=[q_1, q_2, q_3];
 matlabFunction(H_full,'file','H_leg.m','vars',[{eta_i} {beta_1} {beta_2} {alpha_1} {alpha_2} {system_radius} {q_leg}])
+
+% The forward kinematics problem for a parallel spherical manipulator:
+% find the orientation of the platform that correspond to the angles in
+% active joints.
+% Orientation of platform can be described by XYZ euler angles orientation
+
+
+
+
