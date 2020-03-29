@@ -38,7 +38,7 @@ matlabFunction(C_mu_1,'File', 'C_q2','Vars', {eta_i, beta_1, beta_2, alpha_1, al
 
 % %Step_3. Find the q_3 angle by the cos theorem
 v_x_i=Rz(-eta_i)*Rx(pi+beta_1)*Rz(q_1)*Rx(alpha_1)*Rz(q_2)*Rx(alpha_2)*ex;
-v_x=Rz(phi_1)*Ry(phi_2)*Rz(phi_3)*Rz(eta_i)'*Rx(beta_2)'*ex;
+v_x=Rx(phi_1)*Ry(phi_2)*Rz(phi_3)*Rz(eta_i)'*Rx(beta_2)'*ex;
 
 cos_q3=(v_x_i'*v_x)/(sqrt(v_x_i'*v_x_i)*sqrt(v_x'*v_x));
 q_3=-acos(cos_q3);

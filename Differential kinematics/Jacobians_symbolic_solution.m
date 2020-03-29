@@ -10,112 +10,110 @@ syms dq_1 dq_2 dq_3 real;
 geometric_parameters=[beta_1 beta_2 alpha_1 alpha_2];
 q_leg=[q_1, q_2, q_3];
 
-% STEP 1: Compute the jacobian matrix for only one leg:
-L_base=system_radius*sin(beta_1);
-L_l1=2*system_radius*sin(alpha_1/2);
-L_l2=2*system_radius*sin(alpha_2/2);
-L_plat=system_radius*sin(beta_2);
-
-R_q1=Rz(q_1);
-R_q2=Rz(q_2);
+%% Compute the jacobian matrix for only one leg
+R_q1=Rz(q_1)*Rx(alpha_1);
+R_q2=Rz(q_2)*Rx(alpha_2);
 R_q3=Rz(q_3);
+R=Rz(-eta_i)*Rx(pi+beta_1)*R_q1*R_q2*R_q3*Rx(beta_2)*Rz(eta_i)
 
-H_base=R_T(Rz(-eta_i))*Ty(L_base)*R_T(Rx(pi+beta_1));
-H_link_1=R_T(R_q1)*R_T(Rx(alpha_1/2))*Ty(-L_l1)*R_T(Rx(alpha_1/2));
-H_link_2=R_T(R_q2)*R_T(Rx(alpha_2/2))*Ty(-L_l2)*R_T(Rx(alpha_2/2))*R_T(R_q3);
-H_plat=R_T(Rx(beta_2))*Ty(-L_plat)*R_T(Rz(eta_i));
 
-H=expand(H_base*H_link_1*H_link_2*H_plat);
+dR_q1=diff(R_q1,q_1)*dq_1;
+dR_q2=diff(R_q2,q_2)*dq_2;
+dR_q3=diff(R_q3,q_3)*dq_3;
+dR=Rz(-eta_i)*Rx(pi+beta_1)*(dR_q1*(R_q2*R_q3)+R_q1*(dR_q2*R_q3+R_q2*dR_q3))*Rx(beta_2)*Rz(eta_i);
 
-% dR_q1=diff(R_q1,q_1)*dq_1;
-% dR_q2=diff(R_q2,q_2)*dq_2;
-% dR_q3=diff(R_q3,q_3)*dq_3;
-% H_link_1=R_T(dR_q1)*R_T(Rx(alpha_1/2))*Ty(-L_l1)*R_T(Rx(alpha_1/2));
-% H_link_2=R_T(dR_q2)*R_T(Rx(alpha_2/2))*Ty(-L_l2)*R_T(Rx(alpha_2/2))*R_T(dR_q3);
+S=simplify(expand(dR(1:3,1:3)*R(1:3,1:3)'));
 
-dH=expand(H_base*H_link_1*H_link_2*H_plat);
 
-S=simplify(expand(dH(1:3,1:3)*H(1:3,1:3)'));
-
-v=[diff(H(1:3,4),q_1),diff(H(1:3,4),q_2),diff(H(1:3,4),q_3)];
 w=[-S(2,3);S(1,3);-S(1,2)];
+J_q1=simplify(expand(diff(w,dq_1)));
+J_q2=simplify(expand(diff(w,dq_2)));
+J_q3=simplify(expand(diff(w,dq_3)));
 
-J_q1=simplify(expand(subs(w,[dq_2,dq_3],[0,0]))/dq_1);
-J_q2=simplify(expand(subs(w,[dq_1,dq_3],[0,0]))/dq_2);
-J_q3=simplify(expand(subs(w,[dq_1,dq_2],[0,0]))/dq_3);
-
-J_v=simplify(v);
-J_w=simplify([J_q1,J_q2,J_q3])
-
-J=[J_v;J_w];
+J=[J_q1,J_q2,J_q3]
 
 matlabFunction(J,'file','J_leg.m','vars',[{eta_i} {beta_1} {beta_2} {alpha_1} {alpha_2} {system_radius} {q_leg}])
-% 
-% % StEP 2: Compute Jacobians for each legs with different joint angles
-% 
-% syms theta_1 mu_11 mu_21 real;
-% syms theta_2 mu_12 mu_22 real;
-% syms theta_3 mu_13 mu_23 real;
-% 
-% beta_1=0;
-% % beta_2=rad2deg(90);
-% % alpha_1=rad2deg(90);
-% % alpha_2=rad2deg(90);
-% 
-% J_1=J_leg(0,beta_1,beta_2,alpha_1,alpha_2,[theta_1,mu_11,mu_21]);
-% J_theta_1=J_1(1:3,1);
-% J_mu_11=J_1(1:3,2);
-% J_mu_21=J_1(1:3,3);
-% 
-% J_2=J_leg(2/3*pi,beta_1,beta_2,alpha_1,alpha_2,[theta_2,mu_12,mu_22]);
-% J_theta_2=J_2(1:3,1);
-% J_mu_12=J_2(1:3,2);
-% J_mu_22=J_2(1:3,3);
-% 
-% J_3=J_leg(4/3*pi,beta_1,beta_2,alpha_1,alpha_2,[theta_3,mu_13,mu_23]);
-% J_theta_3=J_3(1:3,1);
-% J_mu_13=J_3(1:3,2);
-% J_mu_23=J_3(1:3,3);
-% 
-% % % STEP 3: Rearranged jacobians into the form [J_act, J_pass]
-% % % VERSION 1: low links control
-% % J_act=[J_theta_1, J_theta_2, J_theta_3]
-% % J_pass=[J_mu_11, J_mu_21, J_mu_12, J_mu_22, J_mu_13, J_mu_23]
-% 
-% % VERSION 2: intermediate links control
-% J_act=[J_theta_1, J_mu_11, J_mu_12, J_mu_13];
-% J_pass=[J_mu_21, J_theta_2, J_mu_22, J_theta_3, J_mu_23];
-% 
-% A=simplify(expand(J_pass'*J_pass))
-% 
-% % g=-pinv(J_pass)*J_act
-% % 
-% % 
-% % Jacobians from end-effector
-% syms phi_1 phi_2 phi_3 real;
-% syms dphi_1 dphi_2 dphi_3 real;
-% 
-% R_phi_1=Rx(phi_1);
-% R_phi_2=Ry(phi_2);
-% R_phi_3=Rz(phi_3);
-% 
-% dR_phi_1=diff(R_phi_1,phi_1)*dphi_1;
-% dR_phi_2=diff(R_phi_2,phi_2)*dphi_2;
-% dR_phi_3=diff(R_phi_3,phi_3)*dphi_3;
-% 
-% R=R_phi_1*R_phi_2*R_phi_3;
-% 
-% dR=dR_phi_1*(R_phi_2*R_phi_3)+R_phi_1*(dR_phi_2*R_phi_3+R_phi_2*dR_phi_3);
-% dR=simplify(dR);
-% 
-% S=simplify(dR*R');
-% 
-% w=[-S(2,3);S(1,3);-S(1,2)]
-% 
-% A_1=expand(subs(w,[dphi_2,dphi_3],[0,0]))/dphi_1;
-% A_2=expand(subs(w,[dphi_1,dphi_3],[0,0]))/dphi_2;
-% A_3=expand(subs(w,[dphi_1,dphi_2],[0,0]))/dphi_3;
-% 
-% J_ee=simplify([A_1,A_2,A_3])
-% 
-% matlabFunction(J_ee,'file','J_ee.m','vars',[phi_1 phi_2 phi_3])
+
+%% Jacobian matrix from end-effector in XYZ parametrization
+syms phi_1 phi_2 phi_3 real;
+syms dphi_1 dphi_2 dphi_3 real;
+
+R_phi_1=Rx(phi_1);
+R_phi_2=Ry(phi_2);
+R_phi_3=Rz(phi_3);
+
+dR_phi_1=diff(R_phi_1,phi_1)*dphi_1;
+dR_phi_2=diff(R_phi_2,phi_2)*dphi_2;
+dR_phi_3=diff(R_phi_3,phi_3)*dphi_3;
+
+R=R_phi_1*R_phi_2*R_phi_3;
+
+dR=dR_phi_1*(R_phi_2*R_phi_3)+R_phi_1*(dR_phi_2*R_phi_3+R_phi_2*dR_phi_3);
+dR=simplify(dR);
+
+S=simplify(dR*R');
+
+w=[-S(2,3);S(1,3);-S(1,2)]
+
+A_1=expand(subs(diff(w,dphi_1)));
+A_2=expand(subs(diff(w,dphi_2)));
+A_3=expand(subs(diff(w,dphi_3)));
+
+J=simplify([A_1,A_2,A_3])
+
+matlabFunction(J,'file','J_ee.m','vars',[phi_1 phi_2 phi_3])
+
+% Compute Jacobians for each legs with different joint angles
+
+syms q_11 q_21 q_31 real;
+syms q_12 q_22 q_32 real;
+syms q_13 q_23 q_33 real;
+
+J_1=J_leg(0,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_11,q_21,q_31]);
+J_q_11=J_1(:,1);
+J_q_21=J_1(:,2);
+J_q_31=J_1(:,3);
+
+J_2=J_leg(2/3*pi,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_12,q_22,q_32]);
+J_q_12=J_2(:,1);
+J_q_22=J_2(:,2);
+J_q_32=J_2(:,3);
+
+J_3=J_leg(4/3*pi,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_13,q_23,q_33]);
+J_q_13=J_3(:,1);
+J_q_23=J_3(:,2);
+J_q_33=J_3(:,3);
+
+%% Rearranged jacobians into the form [J_act, J_pass]
+% You can check the singularity by the matrix S=J_pass'*J_pass if this
+% matrix has an incomplete rank, then the orientation phi_1, phi_2, phi_3
+% is singular
+% The transverse matrix from end-effector can also be singular.
+
+% VERSION 1: low links control
+n=size(J_q_11);
+J_act=[J_q_11, -J_q_12, zeros(n);
+       zeros(n), -J_q_12, J_q_13]
+J_pass=[J_q_21, J_q_31, -J_q_22, -J_q_32, zeros(n), zeros(n);
+        zeros(n), zeros(n), -J_q_22, -J_q_32, J_q_23, J_q_33]
+J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
+J_relation=[1,0,0;
+            J_rel(1,:);
+            J_rel(2,:)];
+J_end=inv(J_ee(phi_1,phi_2,phi_3));
+J=J_end*J_1*J_relation;
+
+% VERSION 2: intermediate links control
+n=size(J_q_11);
+J_act=[J_q_11, J_q_21, -J_q_22, zeros(n);
+       zeros(n),zeros(n),-J_q_22, J_q_32]
+J_pass=[J_q_31, -J_q_12, -J_q_32, zeros(n), zeros(n);
+        zeros(n),-J_q_12, -J_q_32, J_q_13, J_q_33]
+S=J_pass'*J_pass;
+
+J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
+J_relation=[1,0,0,0;
+            0,1,0,0;
+            J_rel(1,:)];
+J_end=inv(J_ee(phi_1,phi_2,phi_3));
+J=J_end*J_1*J_relation;

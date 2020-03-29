@@ -1,3 +1,7 @@
+% This function visualize the simple primitive of PSM in position phi_1,
+% phi_2, phi_3 in XYZ parametrization
+% Created by Valeria Skvo
+
 function []=Visualization_PSM(beta_1,beta_2,alpha_1,alpha_2,phi_1,phi_2,phi_3,system_radius)
 L_base=system_radius*sin(beta_1);
 L_l1=2*system_radius*sin(alpha_1/2);
@@ -6,7 +10,6 @@ L_plat=system_radius*sin(beta_2);
 
 figure();
 scatter3(0,0,0,'k')
-color=["#D95319","#7E2F8E","#A2142F"];
 hold on
 for i=1:3
     eta_i=(i-1)*2*pi/3;
@@ -16,21 +19,21 @@ for i=1:3
     fprintf("Leg %d: q_1=%0.2f, q_2=%0.2f, q_3=%0.2f\n",i,rad2deg(q1),rad2deg(q2),rad2deg(q3))
     
 %   Forward kinematics for leg
-    H_base=R_T(Rz(-eta_i))*Ty(L_base)*R_T(Rx(pi+beta_1));
-    H_link_1=R_T(Rz(q1))*R_T(Rx(alpha_1/2))*Ty(-L_l1)*R_T(Rx(alpha_1/2));
-    H_link_2=R_T(Rz(q2))*R_T(Rx(alpha_2/2))*Ty(-L_l2)*R_T(Rx(alpha_2/2))*R_T(Rz(q3));
+    H_base=R_T(Rz(-eta_i))*Ty(L_base)*R_T(Rx(pi+beta_1))*R_T(Rz(q1));
+    H_link_1=R_T(Rx(alpha_1/2))*Ty(-L_l1)*R_T(Rx(alpha_1/2))*R_T(Rz(q2));
+    H_link_2=R_T(Rx(alpha_2/2))*Ty(-L_l2)*R_T(Rx(alpha_2/2))*R_T(Rz(q3));
     H_plat=R_T(Rx(beta_2))*Ty(-L_plat)*R_T(Rz(eta_i));
 
 %   Leg visualization with coordinate system 
-    keypoints=zeros(3,4);
+    keypoints=zeros(3,5);
     H=H_base;
-    keypoints(:,1)=visualization_coord(H,system_radius);
-    H=H*H_link_1;
     keypoints(:,2)=visualization_coord(H,system_radius);
-    H=H*H_link_2;
+    H=H*H_link_1;
     keypoints(:,3)=visualization_coord(H,system_radius);
-    H=H*H_plat;
+    H=H*H_link_2;
     keypoints(:,4)=visualization_coord(H,system_radius);
+    H=H*H_plat;
+    keypoints(:,5)=visualization_coord(H,system_radius);
     
     plot3(keypoints(1,:),keypoints(2,:),keypoints(3,:),'k','LineWidth',1)           
 end

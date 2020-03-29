@@ -26,6 +26,12 @@ matlabFunction(H_full,'file','H_leg.m','vars',[{eta_i} {beta_1} {beta_2} {alpha_
 % active joints.
 % Orientation of platform can be described by XYZ euler angles orientation
 
+syms phi_1 phi_2 phi_3 real;
+syms q_11 q_12 q_13 real;
 
+ez=[0;0;1];
+
+v_z_i=Rx(phi_1)*Ry(phi_2)*Rz(phi_3)*Rz(eta_i)'*Rx(beta_2)'*ez
+w_z_i=Rz(-eta_i)*Rx(pi+beta_1)*Rz(q_11)*Rx(alpha_1)*ez
 
 

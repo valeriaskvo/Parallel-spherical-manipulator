@@ -1,3 +1,6 @@
+% Compute each angles of joints in legs in PSM
+% Created by Valeria Skvo
+
 function [q_1,q_2,q_3]=Inverse_kinematics(eta_i,beta_1,beta_2,alpha_1,alpha_2,phi_1,phi_2,phi_3)
 % Step 1: Find the theta angle without translation part
 A=A_q1(eta_i, beta_1, beta_2, alpha_1, alpha_2, phi_1, phi_2, phi_3);
