@@ -2,7 +2,13 @@
 % phi_2, phi_3 in XYZ parametrization
 % Created by Valeria Skvo
 
-function []=Visualization_PSM(beta_1,beta_2,alpha_1,alpha_2,phi_1,phi_2,phi_3,system_radius)
+function []=Visualization_PSM(system_parameters,phi_ee)
+beta_1=system_parameters(1);
+beta_2=system_parameters(2);
+alpha_1=system_parameters(3);
+alpha_2=system_parameters(4);
+system_radius=system_parameters(5);
+
 L_base=system_radius*sin(beta_1);
 L_l1=2*system_radius*sin(alpha_1/2);
 L_l2=2*system_radius*sin(alpha_2/2);
@@ -11,11 +17,16 @@ L_plat=system_radius*sin(beta_2);
 figure();
 scatter3(0,0,0,'k')
 hold on
+visualization_coord(eye(4),system_radius);
 for i=1:3
     eta_i=(i-1)*2*pi/3;
     
 %   Solve the inverse kinematics task for leg
-    [q1,q2,q3]=Inverse_kinematics(eta_i,beta_1,beta_2,alpha_1,alpha_2,phi_1,phi_2,phi_3);
+    q=Inverse_kinematics(eta_i,system_parameters,phi_ee);
+    q1=q(1);
+    q2=q(2);
+    q3=q(3);
+    
     fprintf("Leg %d: q_1=%0.2f, q_2=%0.2f, q_3=%0.2f\n",i,rad2deg(q1),rad2deg(q2),rad2deg(q3))
     
 %   Forward kinematics for leg
@@ -46,30 +57,4 @@ grid on
 xlim([-2.5*system_radius 2.5*system_radius])
 ylim([-2.5*system_radius 2.5*system_radius])
 zlim([0 2.5*system_radius])
-end
-
-function [O]=visualization_coord(H,system_radius)
-[coord_system,O]=new_coordinate_system(H,system_radius);
-scatter3(O(1),O(2),O(3),'k')
-color=['r','g','b'];
-for j=1:3
-    X=coord_system(:,j);
-    A=X-O;
-    quiver3(O(1),O(2),O(3),A(1),A(2),A(3),color(j))    
-end
-end
-
-function [coord_system,O]=new_coordinate_system(H,system_radius)
-coord_system=zeros(3,3);
-O=zeros(3,1);
-ex=[system_radius/5;0;0;1];
-ey=[0;system_radius/5;0;1];
-ez=[0;0;system_radius/5;1];
-x_axis=H*ex;
-y_axis=H*ey;
-z_axis=H*ez;
-coord_system(:,1)=x_axis(1:3);
-coord_system(:,2)=y_axis(1:3);
-coord_system(:,3)=z_axis(1:3);
-O=H(1:3,4);
 end
