@@ -1,0 +1,18 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		Cost_function_initialize;
+		Cost_function_terminate;
+		Cost_function_atexit;
+		Cost_function;
+		emxEnsureCapacity_boolean_T;
+		emxInit_real_T;
+		emxFree_real_T;
+		emxInit_boolean_T;
+		emxFree_boolean_T;
+		emxEnsureCapacity_real_T;
+	local:
+		*;
+};

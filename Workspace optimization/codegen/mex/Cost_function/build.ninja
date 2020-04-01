@@ -1,0 +1,61 @@
+# CompilerName=mingw64
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/win64
+matlabdir = C:/Program Files/MATLAB/R2019b
+startdir = C:/Users/valer/Documents/Innopolis/Diploma work/PSM git/Workspace optimization
+
+# Toolchain information
+cc = C:\ProgramData\MATLAB\SupportPackages\R2019b\3P.instrset\mingw_w64.instrset\bin\gcc
+cxx = C:\ProgramData\MATLAB\SupportPackages\R2019b\3P.instrset\mingw_w64.instrset\bin\g++
+linker = C:\ProgramData\MATLAB\SupportPackages\R2019b\3P.instrset\mingw_w64.instrset\bin\gcc
+linkerxx = C:\ProgramData\MATLAB\SupportPackages\R2019b\3P.instrset\mingw_w64.instrset\bin\g++
+
+cflags =  -c -fexceptions -fno-omit-frame-pointer -m64 -DMATLAB_MEX_FILE  -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization\codegen\mex\Cost_function" -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization" -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization\codegen\mex\Cost_function\interface" -I "C:\Program Files\MATLAB\R2019b\extern\include" -I "C:\Program Files\MATLAB\R2019b\simulink\include" -I "C:\Program Files\MATLAB\R2019b\rtw\c\src" -I "C:\Program Files\MATLAB\R2019b\rtw\c\src\ext_mode\common" -I "C:\Program Files\MATLAB\R2019b\rtw\c\ert" -I "." -DMODEL=Cost_function_mex -DHAVESTDIO -DUSE_RTMODEL -D__USE_MINGW_ANSI_STDIO=1  
+
+cxxflags =  -c -fexceptions -fno-omit-frame-pointer -std=c++11 -m64 -DMATLAB_MEX_FILE  -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c++11 -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization\codegen\mex\Cost_function" -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization" -I "C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Workspace optimization\codegen\mex\Cost_function\interface" -I "C:\Program Files\MATLAB\R2019b\extern\include" -I "C:\Program Files\MATLAB\R2019b\simulink\include" -I "C:\Program Files\MATLAB\R2019b\rtw\c\src" -I "C:\Program Files\MATLAB\R2019b\rtw\c\src\ext_mode\common" -I "C:\Program Files\MATLAB\R2019b\rtw\c\ert" -I "." -DMODEL=Cost_function_mex -DHAVESTDIO -DUSE_RTMODEL -D__USE_MINGW_ANSI_STDIO=1  
+
+ldflags =  -m64 -Wl,--no-undefined -shared -static -L"C:\Program Files\MATLAB\R2019b\extern\lib\win64\mingw64" -llibmx -llibmex -llibmat -lm -llibmwlapack -llibmwblas -o "Cost_function_mex.mexw64" -L"$matlabdir\extern\lib\win64\mingw64" -llibmwblas -llibemlrt -llibcovrt -llibut -llibmwmathutil  -Wl,--version-script,Cost_function_mex.map
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker @$out.rsp $ldflags
+    rspfile = $out.rsp
+    rspfile_content = $in
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir/rt_nonfinite.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/rt_nonfinite.c
+build $builddir/Cost_function_data.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function_data.c
+build $builddir/Cost_function_initialize.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function_initialize.c
+build $builddir/Cost_function_terminate.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function_terminate.c
+build $builddir/Cost_function.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function.c
+build $builddir/Inverse_kinematics.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Inverse_kinematics.c
+build $builddir/eml_int_forloop_overflow_check.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/eml_int_forloop_overflow_check.c
+build $builddir/J_leg.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/J_leg.c
+build $builddir/xzsvdc.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xzsvdc.c
+build $builddir/xnrm2.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xnrm2.c
+build $builddir/eps.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/eps.c
+build $builddir/xrotg.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xrotg.c
+build $builddir/Sing_v2.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Sing_v2.c
+build $builddir/Workspace_calculation.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Workspace_calculation.c
+build $builddir/Collision_check.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Collision_check.c
+build $builddir/_coder_Cost_function_api.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/interface/_coder_Cost_function_api.c
+build $builddir/_coder_Cost_function_mex.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/interface/_coder_Cost_function_mex.c
+build $builddir/Cost_function_emxutil.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function_emxutil.c
+build $builddir/_coder_Cost_function_info.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/interface/_coder_Cost_function_info.c
+build $builddir/c_mexapi_version.o : cc C$:/Program$ Files/MATLAB/R2019b/extern/version/c_mexapi_version.c
+
+# Link
+build $root\Cost_function_mex.mexw64 : link $builddir\rt_nonfinite.o $builddir\Cost_function_data.o $builddir\Cost_function_initialize.o $builddir\Cost_function_terminate.o $builddir\Cost_function.o $builddir\Inverse_kinematics.o $builddir\eml_int_forloop_overflow_check.o $builddir\J_leg.o $builddir\xzsvdc.o $builddir\xnrm2.o $builddir\eps.o $builddir\xrotg.o $builddir\Sing_v2.o $builddir\Workspace_calculation.o $builddir\Collision_check.o $builddir\_coder_Cost_function_api.o $builddir\_coder_Cost_function_mex.o $builddir\Cost_function_emxutil.o $builddir\_coder_Cost_function_info.o $builddir\c_mexapi_version.o 
