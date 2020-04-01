@@ -63,57 +63,57 @@ J=simplify([A_1,A_2,A_3])
 
 matlabFunction(J,'file','J_ee.m','vars',{phi_ee})
 
-% % Compute Jacobians for each legs with different joint angles
-% 
-% syms q_11 q_21 q_31 real;
-% syms q_12 q_22 q_32 real;
-% syms q_13 q_23 q_33 real;
-% 
-% J_1=J_leg(0,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_11,q_21,q_31]);
-% J_q_11=J_1(:,1);
-% J_q_21=J_1(:,2);
-% J_q_31=J_1(:,3);
-% 
-% J_2=J_leg(2/3*pi,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_12,q_22,q_32]);
-% J_q_12=J_2(:,1);
-% J_q_22=J_2(:,2);
-% J_q_32=J_2(:,3);
-% 
-% J_3=J_leg(4/3*pi,beta_1,beta_2,alpha_1,alpha_2,system_radius,[q_13,q_23,q_33]);
-% J_q_13=J_3(:,1);
-% J_q_23=J_3(:,2);
-% J_q_33=J_3(:,3);
-% 
-% %% Rearranged jacobians into the form [J_act, J_pass]
-% % You can check the singularity by the matrix S=J_pass'*J_pass if this
-% % matrix has an incomplete rank, then the orientation phi_1, phi_2, phi_3
-% % is singular
-% % The transverse matrix from end-effector can also be singular.
-% 
-% % VERSION 1: low links control
-% n=size(J_q_11);
-% J_act=[J_q_11, -J_q_12, zeros(n);
-%        zeros(n), -J_q_12, J_q_13]
-% J_pass=[J_q_21, J_q_31, -J_q_22, -J_q_32, zeros(n), zeros(n);
-%         zeros(n), zeros(n), -J_q_22, -J_q_32, J_q_23, J_q_33]
-% J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
-% J_relation=[1,0,0;
-%             J_rel(1,:);
-%             J_rel(2,:)];
-% J_end=inv(J_ee(phi_1,phi_2,phi_3));
-% J=J_end*J_1*J_relation;
-% 
-% % VERSION 2: intermediate links control
-% n=size(J_q_11);
-% J_act=[J_q_11, J_q_21, -J_q_22, zeros(n);
-%        zeros(n),zeros(n),-J_q_22, J_q_32]
-% J_pass=[J_q_31, -J_q_12, -J_q_32, zeros(n), zeros(n);
-%         zeros(n),-J_q_12, -J_q_32, J_q_13, J_q_33]
-% S=J_pass'*J_pass;
-% 
-% J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
-% J_relation=[1,0,0,0;
-%             0,1,0,0;
-%             J_rel(1,:)];
-% J_end=inv(J_ee(phi_1,phi_2,phi_3));
-% J=J_end*J_1*J_relation;
+% Compute Jacobians for each legs with different joint angles
+
+syms q_11 q_21 q_31 real;
+syms q_12 q_22 q_32 real;
+syms q_13 q_23 q_33 real;
+
+J_1=J_leg(0,system_parameters,[q_11;q_21;q_31]);
+J_q_11=J_1(:,1);
+J_q_21=J_1(:,2);
+J_q_31=J_1(:,3);
+
+J_2=J_leg(2/3*pi,system_parameters,[q_12;q_22;q_32]);
+J_q_12=J_2(:,1);
+J_q_22=J_2(:,2);
+J_q_32=J_2(:,3);
+
+J_3=J_leg(4/3*pi,system_parameters,[q_13;q_23;q_33]);
+J_q_13=J_3(:,1);
+J_q_23=J_3(:,2);
+J_q_33=J_3(:,3);
+
+%% Rearranged jacobians into the form [J_act, J_pass]
+% You can check the singularity by the matrix S=J_pass'*J_pass if this
+% matrix has an incomplete rank, then the orientation phi_1, phi_2, phi_3
+% is singular
+% The transverse matrix from end-effector can also be singular.
+
+% VERSION 1: low links control
+n=size(J_q_11);
+J_act=[J_q_11, -J_q_12, zeros(n);
+       zeros(n), -J_q_12, J_q_13]
+J_pass=[J_q_21, J_q_31, -J_q_22, -J_q_32, zeros(n), zeros(n);
+        zeros(n), zeros(n), -J_q_22, -J_q_32, J_q_23, J_q_33]
+J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
+J_relation=[1,0,0;
+            J_rel(1,:);
+            J_rel(2,:)];
+J_end=inv(J_ee(phi_1,phi_2,phi_3));
+J=J_end*J_1*J_relation;
+
+% VERSION 2: intermediate links control
+n=size(J_q_11);
+J_act=[J_q_11, J_q_21, -J_q_22, zeros(n);
+       zeros(n),zeros(n),-J_q_22, J_q_32]
+J_pass=[J_q_31, -J_q_12, -J_q_32, zeros(n), zeros(n);
+        zeros(n),-J_q_12, -J_q_32, J_q_13, J_q_33]
+S=J_pass'*J_pass;
+
+J_rel=-inv(J_pass'*J_pass)*J_pass'*J_act;
+J_relation=[1,0,0,0;
+            0,1,0,0;
+            J_rel(1,:)];
+J_end=inv(J_ee(phi_1,phi_2,phi_3));
+J=J_end*J_1*J_relation;
