@@ -15,7 +15,7 @@
 #include "xrotg.h"
 
 /* Variable Definitions */
-static emlrtRSInfo hb_emlrtRSI = { 380,/* lineNo */
+static emlrtRSInfo ib_emlrtRSI = { 380,/* lineNo */
   "xzsvdc",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+reflapack\\xzsvdc.m"/* pathName */
 };
@@ -334,7 +334,7 @@ void b_xzsvdc(const emlrtStack *sp, real_T A[36], real_T S[6])
         nrm *= nrm;
         if ((t != 0.0) || (nrm != 0.0)) {
           absxk = t * t + nrm;
-          st.site = &hb_emlrtRSI;
+          st.site = &ib_emlrtRSI;
           if (absxk < 0.0) {
             emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
               "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError",
@@ -1004,7 +1004,7 @@ void c_xzsvdc(const emlrtStack *sp, real_T A[25], real_T S[5])
         nrm *= nrm;
         if ((t != 0.0) || (nrm != 0.0)) {
           absxk = t * t + nrm;
-          st.site = &hb_emlrtRSI;
+          st.site = &ib_emlrtRSI;
           if (absxk < 0.0) {
             emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
               "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError",
@@ -1441,7 +1441,7 @@ void xzsvdc(const emlrtStack *sp, real_T A[9], real_T S[3])
         nrm *= nrm;
         if ((t != 0.0) || (nrm != 0.0)) {
           absxk = t * t + nrm;
-          st.site = &hb_emlrtRSI;
+          st.site = &ib_emlrtRSI;
           if (absxk < 0.0) {
             emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
               "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError",

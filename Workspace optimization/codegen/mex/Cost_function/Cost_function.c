@@ -40,47 +40,47 @@ static emlrtRSInfo d_emlrtRSI = { 13,  /* lineNo */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Cost_function.m"/* pathName */
 };
 
-static emlrtRSInfo wb_emlrtRSI = { 15, /* lineNo */
+static emlrtRSInfo xb_emlrtRSI = { 15, /* lineNo */
   "sum",                               /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\sum.m"/* pathName */
 };
 
-static emlrtRSInfo xb_emlrtRSI = { 39, /* lineNo */
+static emlrtRSInfo yb_emlrtRSI = { 39, /* lineNo */
   "sumprod",                           /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumprod.m"/* pathName */
 };
 
-static emlrtRSInfo yb_emlrtRSI = { 106,/* lineNo */
+static emlrtRSInfo ac_emlrtRSI = { 106,/* lineNo */
   "applyToMultipleDims",               /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\applyToMultipleDims.m"/* pathName */
 };
 
-static emlrtRSInfo ac_emlrtRSI = { 39, /* lineNo */
+static emlrtRSInfo bc_emlrtRSI = { 39, /* lineNo */
   "function_handle/parenReference",    /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\function_handle.m"/* pathName */
 };
 
-static emlrtRSInfo bc_emlrtRSI = { 35, /* lineNo */
+static emlrtRSInfo cc_emlrtRSI = { 35, /* lineNo */
   "@(x)sumprod(op,x,coder.internal.indexInt(1),varargin{2:end})",/* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumprod.m"/* pathName */
 };
 
-static emlrtRSInfo cc_emlrtRSI = { 96, /* lineNo */
+static emlrtRSInfo dc_emlrtRSI = { 96, /* lineNo */
   "sumprod",                           /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumprod.m"/* pathName */
 };
 
-static emlrtRSInfo dc_emlrtRSI = { 124,/* lineNo */
+static emlrtRSInfo ec_emlrtRSI = { 124,/* lineNo */
   "combineVectorElements",             /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\private\\combineVectorElements.m"/* pathName */
 };
 
-static emlrtRSInfo ec_emlrtRSI = { 184,/* lineNo */
+static emlrtRSInfo fc_emlrtRSI = { 184,/* lineNo */
   "colMajorFlatIter",                  /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\datafun\\private\\combineVectorElements.m"/* pathName */
 };
 
-static emlrtRSInfo fc_emlrtRSI = { 21, /* lineNo */
+static emlrtRSInfo gc_emlrtRSI = { 21, /* lineNo */
   "eml_int_forloop_overflow_check",    /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\eml\\eml_int_forloop_overflow_check.m"/* pathName */
 };
@@ -173,7 +173,7 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
         flag_par = true;
       }
 
-      b_st.site = &u_emlrtRSI;
+      b_st.site = &v_emlrtRSI;
       Inverse_kinematics(&b_st, eta_i, system_parameters, dv, q);
       J_leg(eta_i, system_parameters, q, J_i);
       b_i = 3 * i;
@@ -196,10 +196,10 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
       if (eta_i != 0.0) {
         flag_ser = true;
       } else {
-        b_st.site = &v_emlrtRSI;
-        c_st.site = &x_emlrtRSI;
+        b_st.site = &w_emlrtRSI;
+        c_st.site = &y_emlrtRSI;
         irank = 0;
-        d_st.site = &y_emlrtRSI;
+        d_st.site = &ab_emlrtRSI;
         p = true;
         for (k = 0; k < 9; k++) {
           if ((!p) || (muDoubleScalarIsInf(J_i[k]) || muDoubleScalarIsNaN(J_i[k])))
@@ -209,10 +209,10 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
         }
 
         if (p) {
-          e_st.site = &bb_emlrtRSI;
-          f_st.site = &cb_emlrtRSI;
-          g_st.site = &db_emlrtRSI;
-          h_st.site = &eb_emlrtRSI;
+          e_st.site = &cb_emlrtRSI;
+          f_st.site = &db_emlrtRSI;
+          g_st.site = &eb_emlrtRSI;
+          h_st.site = &fb_emlrtRSI;
           xzsvdc(&h_st, J_i, q);
         } else {
           q[0] = rtNaN;
@@ -220,7 +220,7 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
           q[2] = rtNaN;
         }
 
-        d_st.site = &ab_emlrtRSI;
+        d_st.site = &bb_emlrtRSI;
         eta_i = 3.0 * eps(q[0]);
         k = 0;
         while ((k < 3) && (q[k] > eta_i)) {
@@ -297,10 +297,10 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
     if (eta_i != 0.0) {
       flag_par = true;
     } else {
-      b_st.site = &w_emlrtRSI;
-      c_st.site = &x_emlrtRSI;
+      b_st.site = &x_emlrtRSI;
+      c_st.site = &y_emlrtRSI;
       irank = 0;
-      d_st.site = &y_emlrtRSI;
+      d_st.site = &ab_emlrtRSI;
       p = true;
       for (k = 0; k < 36; k++) {
         if ((!p) || (muDoubleScalarIsInf(S[k]) || muDoubleScalarIsNaN(S[k]))) {
@@ -309,10 +309,10 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
       }
 
       if (p) {
-        e_st.site = &bb_emlrtRSI;
-        f_st.site = &cb_emlrtRSI;
-        g_st.site = &db_emlrtRSI;
-        h_st.site = &eb_emlrtRSI;
+        e_st.site = &cb_emlrtRSI;
+        f_st.site = &db_emlrtRSI;
+        g_st.site = &eb_emlrtRSI;
+        h_st.site = &fb_emlrtRSI;
         b_xzsvdc(&h_st, S, s);
       } else {
         for (i = 0; i < 6; i++) {
@@ -320,7 +320,7 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
         }
       }
 
-      d_st.site = &ab_emlrtRSI;
+      d_st.site = &bb_emlrtRSI;
       eta_i = 6.0 * eps(s[0]);
       k = 0;
       while ((k < 6) && (s[k] > eta_i)) {
@@ -363,21 +363,21 @@ real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
       b_x->data[b_i] = (workspace->data[b_i] == 0.0);
     }
 
-    b_st.site = &wb_emlrtRSI;
-    c_st.site = &xb_emlrtRSI;
-    d_st.site = &yb_emlrtRSI;
-    e_st.site = &ac_emlrtRSI;
-    f_st.site = &bc_emlrtRSI;
-    g_st.site = &cc_emlrtRSI;
+    b_st.site = &xb_emlrtRSI;
+    c_st.site = &yb_emlrtRSI;
+    d_st.site = &ac_emlrtRSI;
+    e_st.site = &bc_emlrtRSI;
+    f_st.site = &cc_emlrtRSI;
+    g_st.site = &dc_emlrtRSI;
     irank = b_x->size[0];
     if (b_x->size[0] == 0) {
       eta_i = 0.0;
     } else {
-      h_st.site = &dc_emlrtRSI;
+      h_st.site = &ec_emlrtRSI;
       eta_i = b_x->data[0];
-      i_st.site = &ec_emlrtRSI;
+      i_st.site = &fc_emlrtRSI;
       if ((2 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
-        j_st.site = &fc_emlrtRSI;
+        j_st.site = &gc_emlrtRSI;
         check_forloop_overflow_error(&j_st);
       }
 

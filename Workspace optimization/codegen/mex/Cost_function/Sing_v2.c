@@ -17,17 +17,17 @@
 #include "xzsvdc.h"
 
 /* Variable Definitions */
-static emlrtRSInfo nb_emlrtRSI = { 10, /* lineNo */
+static emlrtRSInfo ob_emlrtRSI = { 10, /* lineNo */
   "Sing_v2",                           /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v2.m"/* pathName */
 };
 
-static emlrtRSInfo ob_emlrtRSI = { 13, /* lineNo */
+static emlrtRSInfo pb_emlrtRSI = { 13, /* lineNo */
   "Sing_v2",                           /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v2.m"/* pathName */
 };
 
-static emlrtRSInfo pb_emlrtRSI = { 21, /* lineNo */
+static emlrtRSInfo qb_emlrtRSI = { 21, /* lineNo */
   "Sing_v2",                           /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v2.m"/* pathName */
 };
@@ -78,7 +78,7 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
   *flag_ser = false;
   for (i = 0; i < 3; i++) {
     eta_i = (((real_T)i + 1.0) - 1.0) * 2.0 / 3.0 * 3.1415926535897931;
-    st.site = &nb_emlrtRSI;
+    st.site = &ob_emlrtRSI;
     Inverse_kinematics(&st, eta_i, system_parameters, phi_ee, q);
     J_leg(eta_i, system_parameters, q, J_i);
     irank = 3 * i;
@@ -101,10 +101,10 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
     if (eta_i != 0.0) {
       *flag_ser = true;
     } else {
-      st.site = &ob_emlrtRSI;
-      b_st.site = &x_emlrtRSI;
+      st.site = &pb_emlrtRSI;
+      b_st.site = &y_emlrtRSI;
       irank = 0;
-      c_st.site = &y_emlrtRSI;
+      c_st.site = &ab_emlrtRSI;
       p = true;
       for (J_gen_tmp = 0; J_gen_tmp < 9; J_gen_tmp++) {
         if ((!p) || (muDoubleScalarIsInf(J_i[J_gen_tmp]) || muDoubleScalarIsNaN
@@ -114,10 +114,10 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
       }
 
       if (p) {
-        d_st.site = &bb_emlrtRSI;
-        e_st.site = &cb_emlrtRSI;
-        f_st.site = &db_emlrtRSI;
-        g_st.site = &eb_emlrtRSI;
+        d_st.site = &cb_emlrtRSI;
+        e_st.site = &db_emlrtRSI;
+        f_st.site = &eb_emlrtRSI;
+        g_st.site = &fb_emlrtRSI;
         xzsvdc(&g_st, J_i, q);
       } else {
         q[0] = rtNaN;
@@ -125,7 +125,7 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
         q[2] = rtNaN;
       }
 
-      c_st.site = &ab_emlrtRSI;
+      c_st.site = &bb_emlrtRSI;
       eta_i = 3.0 * eps(q[0]);
       J_gen_tmp = 0;
       while ((J_gen_tmp < 3) && (q[J_gen_tmp] > eta_i)) {
@@ -196,10 +196,10 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
   if (eta_i != 0.0) {
     *flag_par = true;
   } else {
-    st.site = &pb_emlrtRSI;
-    b_st.site = &x_emlrtRSI;
+    st.site = &qb_emlrtRSI;
+    b_st.site = &y_emlrtRSI;
     irank = 0;
-    c_st.site = &y_emlrtRSI;
+    c_st.site = &ab_emlrtRSI;
     p = true;
     for (J_gen_tmp = 0; J_gen_tmp < 25; J_gen_tmp++) {
       if ((!p) || (muDoubleScalarIsInf(S[J_gen_tmp]) || muDoubleScalarIsNaN
@@ -209,10 +209,10 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
     }
 
     if (p) {
-      d_st.site = &bb_emlrtRSI;
-      e_st.site = &cb_emlrtRSI;
-      f_st.site = &db_emlrtRSI;
-      g_st.site = &eb_emlrtRSI;
+      d_st.site = &cb_emlrtRSI;
+      e_st.site = &db_emlrtRSI;
+      f_st.site = &eb_emlrtRSI;
+      g_st.site = &fb_emlrtRSI;
       c_xzsvdc(&g_st, S, s);
     } else {
       for (i = 0; i < 5; i++) {
@@ -220,7 +220,7 @@ void Sing_v2(const emlrtStack *sp, const real_T system_parameters[5], const
       }
     }
 
-    c_st.site = &ab_emlrtRSI;
+    c_st.site = &bb_emlrtRSI;
     eta_i = 5.0 * eps(s[0]);
     J_gen_tmp = 0;
     while ((J_gen_tmp < 5) && (s[J_gen_tmp] > eta_i)) {

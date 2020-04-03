@@ -58,6 +58,11 @@ static emlrtRSInfo t_emlrtRSI = { 89,  /* lineNo */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\q3_find.m"/* pathName */
 };
 
+static emlrtRSInfo u_emlrtRSI = { 93,  /* lineNo */
+  "q3_find",                           /* fcnName */
+  "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\q3_find.m"/* pathName */
+};
+
 static emlrtRTEInfo b_emlrtRTEI = { 14,/* lineNo */
   9,                                   /* colNo */
   "acos",                              /* fName */
@@ -336,16 +341,19 @@ void Inverse_kinematics(const emlrtStack *sp, real_T eta_i, const real_T
       }
 
       t16_tmp = muDoubleScalarSqrt(t16_tmp);
-      b_st.site = &t_emlrtRSI;
-      t23 = -1.0 / t23 * ((t51 * t77 - t74 * t76) + t67 * q_3) / t16_tmp;
-      if ((t23 < -1.0) || (t23 > 1.0)) {
+      q_3 = -1.0 / t23 * ((t51 * t77 - t74 * t76) + t67 * q_3) / t16_tmp;
+      if (muDoubleScalarAbs(q_3) > 1.0) {
+        q_3 = muDoubleScalarSign(q_3);
+      }
+
+      b_st.site = &u_emlrtRSI;
+      if ((q_3 < -1.0) || (q_3 > 1.0)) {
         emlrtErrorWithMessageIdR2018a(&b_st, &b_emlrtRTEI,
           "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3,
           4, 4, "acos");
       }
 
-      t23 = muDoubleScalarAcos(t23);
-      q_3 = t23 + -3.1415926535897931;
+      q_3 = muDoubleScalarAcos(q_3) + -3.1415926535897931;
     } else {
       q_3 = rtInf;
     }

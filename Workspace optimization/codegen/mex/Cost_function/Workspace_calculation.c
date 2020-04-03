@@ -21,17 +21,17 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo qb_emlrtRSI = { 7,  /* lineNo */
+static emlrtRSInfo rb_emlrtRSI = { 7,  /* lineNo */
   "Workspace_calculation",             /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Workspace_calculation.m"/* pathName */
 };
 
-static emlrtRSInfo rb_emlrtRSI = { 9,  /* lineNo */
+static emlrtRSInfo sb_emlrtRSI = { 9,  /* lineNo */
   "Workspace_calculation",             /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Workspace_calculation.m"/* pathName */
 };
 
-static emlrtRSInfo sb_emlrtRSI = { 11, /* lineNo */
+static emlrtRSInfo tb_emlrtRSI = { 11, /* lineNo */
   "Workspace_calculation",             /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Workspace_calculation.m"/* pathName */
 };
@@ -157,7 +157,7 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
     }
 
     if (version == 1.0) {
-      st.site = &qb_emlrtRSI;
+      st.site = &rb_emlrtRSI;
 
       /*  Compute the matix for singularity checking in PSM which controlled by low */
       /*  links actuators */
@@ -168,7 +168,7 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
         b_phi_set[0] = phi_set->data[i];
         b_phi_set[1] = phi_set->data[i + phi_set->size[0]];
         b_phi_set[2] = phi_set->data[i + phi_set->size[0] * 2];
-        b_st.site = &u_emlrtRSI;
+        b_st.site = &v_emlrtRSI;
         Inverse_kinematics(&b_st, eta_i, system_parameters, b_phi_set, q);
         J_leg(eta_i, system_parameters, q, J_i);
         irank = 3 * b_i;
@@ -191,10 +191,10 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
         if (eta_i != 0.0) {
           flag_ser = true;
         } else {
-          b_st.site = &v_emlrtRSI;
-          c_st.site = &x_emlrtRSI;
+          b_st.site = &w_emlrtRSI;
+          c_st.site = &y_emlrtRSI;
           irank = 0;
-          d_st.site = &y_emlrtRSI;
+          d_st.site = &ab_emlrtRSI;
           flag_par = true;
           for (J_gen_tmp = 0; J_gen_tmp < 9; J_gen_tmp++) {
             if ((!flag_par) || (muDoubleScalarIsInf(J_i[J_gen_tmp]) ||
@@ -204,10 +204,10 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
           }
 
           if (flag_par) {
-            e_st.site = &bb_emlrtRSI;
-            f_st.site = &cb_emlrtRSI;
-            g_st.site = &db_emlrtRSI;
-            h_st.site = &eb_emlrtRSI;
+            e_st.site = &cb_emlrtRSI;
+            f_st.site = &db_emlrtRSI;
+            g_st.site = &eb_emlrtRSI;
+            h_st.site = &fb_emlrtRSI;
             xzsvdc(&h_st, J_i, q);
           } else {
             q[0] = rtNaN;
@@ -215,7 +215,7 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
             q[2] = rtNaN;
           }
 
-          d_st.site = &ab_emlrtRSI;
+          d_st.site = &bb_emlrtRSI;
           eta_i = 3.0 * eps(q[0]);
           J_gen_tmp = 0;
           while ((J_gen_tmp < 3) && (q[J_gen_tmp] > eta_i)) {
@@ -292,10 +292,10 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
       if (eta_i != 0.0) {
         flag_par = true;
       } else {
-        b_st.site = &w_emlrtRSI;
-        c_st.site = &x_emlrtRSI;
+        b_st.site = &x_emlrtRSI;
+        c_st.site = &y_emlrtRSI;
         irank = 0;
-        d_st.site = &y_emlrtRSI;
+        d_st.site = &ab_emlrtRSI;
         flag_par = true;
         for (J_gen_tmp = 0; J_gen_tmp < 36; J_gen_tmp++) {
           if ((!flag_par) || (muDoubleScalarIsInf(S[J_gen_tmp]) ||
@@ -305,11 +305,11 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
         }
 
         if (flag_par) {
-          e_st.site = &bb_emlrtRSI;
-          f_st.site = &cb_emlrtRSI;
-          g_st.site = &db_emlrtRSI;
+          e_st.site = &cb_emlrtRSI;
+          f_st.site = &db_emlrtRSI;
+          g_st.site = &eb_emlrtRSI;
           memcpy(&b_S[0], &S[0], 36U * sizeof(real_T));
-          h_st.site = &eb_emlrtRSI;
+          h_st.site = &fb_emlrtRSI;
           b_xzsvdc(&h_st, b_S, s);
         } else {
           for (b_i = 0; b_i < 6; b_i++) {
@@ -317,7 +317,7 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
           }
         }
 
-        d_st.site = &ab_emlrtRSI;
+        d_st.site = &bb_emlrtRSI;
         eta_i = 6.0 * eps(s[0]);
         J_gen_tmp = 0;
         while ((J_gen_tmp < 6) && (s[J_gen_tmp] > eta_i)) {
@@ -335,14 +335,14 @@ void Workspace_calculation(const emlrtStack *sp, const real_T system_parameters
       b_phi_set[0] = phi_set->data[i];
       b_phi_set[1] = phi_set->data[i + phi_set->size[0]];
       b_phi_set[2] = phi_set->data[i + phi_set->size[0] * 2];
-      st.site = &rb_emlrtRSI;
+      st.site = &sb_emlrtRSI;
       Sing_v2(&st, system_parameters, b_phi_set, &flag_ser, &flag_par);
     }
 
     b_phi_set[0] = phi_set->data[i];
     b_phi_set[1] = phi_set->data[i + phi_set->size[0]];
     b_phi_set[2] = phi_set->data[i + phi_set->size[0] * 2];
-    st.site = &sb_emlrtRSI;
+    st.site = &tb_emlrtRSI;
     flag = Collision_check(&st, system_parameters, b_phi_set, allowed_radius);
     if (flag_ser) {
       irank = i + 1;
