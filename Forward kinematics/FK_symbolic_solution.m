@@ -76,7 +76,7 @@ R_3=H_3(1:3,1:3);
 
 orientation_error_1=-(R_1(1:3,1)'*R_2(1:3,1)+R_1(1:3,2)'*R_2(1:3,2)+R_1(1:3,3)'*R_2(1:3,3));
 orientation_error_2=-(R_1(1:3,1)'*R_3(1:3,1)+R_1(1:3,2)'*R_3(1:3,2)+R_1(1:3,3)'*R_3(1:3,3));
-orientation_error_3=-(R_2(1:3,1)'*R_3(1:3,1)+R_2(1:3,2)'*R_2(1:3,2)+R_2(1:3,3)'*R_3(1:3,3));
+orientation_error_3=-(R_2(1:3,1)'*R_3(1:3,1)+R_2(1:3,2)'*R_3(1:3,2)+R_2(1:3,3)'*R_3(1:3,3));
 orientation_error=orientation_error_1+orientation_error_2+orientation_error_3;
 
 % Add the weights to the position error and rotation error;
