@@ -2,7 +2,7 @@
  * File: Inverse_kinematics.c
  *
  * MATLAB Coder version            : 4.3
- * C/C++ source code generated on  : 01-Apr-2020 16:39:04
+ * C/C++ source code generated on  : 03-Apr-2020 11:57:13
  */
 
 /* Include Files */
@@ -268,9 +268,21 @@ void Inverse_kinematics(double eta_i, const double system_parameters[5], const
         t2_tmp * (q_3 + -(t3_tmp * q_1_tmp))));
       q_3 = t12_tmp * (t22 + t14_tmp * t21) - t5_tmp * (t24 + -(t14_tmp *
         g_q_1_tmp_tmp));
-      q_3 = acos(-1.0 / sqrt((q_3 * q_3 + t51 * t51) + t74 * t74) * ((t51 * t77
-        - t74 * t9) + t67 * q_3) / sqrt((t67 * t67 + t9 * t9) + t77 * t77)) +
-        -3.1415926535897931;
+      q_3 = -1.0 / sqrt((q_3 * q_3 + t51 * t51) + t74 * t74) * ((t51 * t77 - t74
+        * t9) + t67 * q_3) / sqrt((t67 * t67 + t9 * t9) + t77 * t77);
+      if (fabs(q_3) > 1.0) {
+        if (q_3 < 0.0) {
+          q_3 = -1.0;
+        } else if (q_3 > 0.0) {
+          q_3 = 1.0;
+        } else {
+          if (q_3 == 0.0) {
+            q_3 = 0.0;
+          }
+        }
+      }
+
+      q_3 = acos(q_3) + -3.1415926535897931;
     } else {
       q_3 = rtInf;
     }

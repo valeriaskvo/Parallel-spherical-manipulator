@@ -2,7 +2,7 @@
  * File: _coder_Inverse_kinematics_v1_mex.h
  *
  * MATLAB Coder version            : 4.3
- * C/C++ source code generated on  : 01-Apr-2020 16:37:01
+ * C/C++ source code generated on  : 03-Apr-2020 11:55:34
  */
 
 #ifndef _CODER_INVERSE_KINEMATICS_V1_MEX_H
