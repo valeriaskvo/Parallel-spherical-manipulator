@@ -2,7 +2,7 @@
  * File: Forward_kinematics_v1.c
  *
  * MATLAB Coder version            : 4.3
- * C/C++ source code generated on  : 01-Apr-2020 16:21:00
+ * C/C++ source code generated on  : 03-Apr-2020 13:49:12
  */
 
 /* Include Files */
@@ -275,9 +275,21 @@ void Forward_kinematics_v1(const double system_parameters[5], const double q[3],
         t74 = t5_tmp * 0.0 + -t12_tmp;
         b_q_1 = b_q_1 * (c_q_1_tmp_tmp_tmp + t3_tmp * t19) + -(t17 *
           (f_q_1_tmp_tmp_tmp + t2_tmp * (t23 + -(t3_tmp * e_q_1_tmp_tmp_tmp))));
-        b_q_1 = acos(-1.0 / sqrt(t51 * t51 + t74 * t74) * ((t51 * t77 - t74 *
-          b_q_1) + t67 * 0.0) / sqrt((t67 * t67 + b_q_1 * b_q_1) + t77 * t77)) +
-          -3.1415926535897931;
+        b_q_1 = -1.0 / sqrt(t51 * t51 + t74 * t74) * ((t51 * t77 - t74 * b_q_1)
+          + t67 * 0.0) / sqrt((t67 * t67 + b_q_1 * b_q_1) + t77 * t77);
+        if (fabs(b_q_1) > 1.0) {
+          if (b_q_1 < 0.0) {
+            b_q_1 = -1.0;
+          } else if (b_q_1 > 0.0) {
+            b_q_1 = 1.0;
+          } else {
+            if (b_q_1 == 0.0) {
+              b_q_1 = 0.0;
+            }
+          }
+        }
+
+        b_q_1 = acos(b_q_1) + -3.1415926535897931;
       } else {
         b_q_1 = rtInf;
       }

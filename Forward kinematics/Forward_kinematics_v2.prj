@@ -828,7 +828,7 @@
     <param.objective>option.objective.c</param.objective>
     <param.WorkflowStep>workflowSummary</param.WorkflowStep>
     <param.TestSnippets>
-      <item>[phi]=Forward_kinematics_v2(system_parameters,q_v2)</item>
+      <item>Forward_kinematics_v2(system_parameters,q_v2)</item>
     </param.TestSnippets>
     <param.ExternalFcnMajority>column</param.ExternalFcnMajority>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
@@ -847,7 +847,7 @@
     <param.AutoInferUnboundedSizeThreshold>2048</param.AutoInferUnboundedSizeThreshold>
     <param.EnableFixedPointStep>false</param.EnableFixedPointStep>
     <param.EnableScreener>true</param.EnableScreener>
-    <param.AnnotationChecksum>3888315896</param.AnnotationChecksum>
+    <param.AnnotationChecksum>544338487</param.AnnotationChecksum>
     <var.LegacyTarget />
     <var.MirrorOnOpen>false</var.MirrorOnOpen>
     <param.FixedPointEnabled>false</param.FixedPointEnabled>
@@ -858,10 +858,10 @@
     <var.gc.lastOutputType>C_CODE</var.gc.lastOutputType>
     <var.gc.preBuildChecksum>1925255</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot>codegen\mex\Forward_kinematics_v2</var.cfi.lastOutputRoot>
-    <var.cfi.preBuildChecksum>1686210147</var.cfi.preBuildChecksum>
-    <var.lastCfiTestSnippet>[phi]=Forward_kinematics_v2(system_parameters,q_v2)</var.lastCfiTestSnippet>
+    <var.cfi.preBuildChecksum>3762862314</var.cfi.preBuildChecksum>
+    <var.lastCfiTestSnippet>Forward_kinematics_v2(system_parameters,q_v2)</var.lastCfiTestSnippet>
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Forward_kinematics_v2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\H_leg.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\R_to_eulXYZ.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Weighted_error.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\Inverse_kinematics.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\q3_find.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1688108885&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Forward_kinematics_v2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\H_leg.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\R_to_eulXYZ.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Weighted_error.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\Inverse_kinematics.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\q3_find.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;3577025856&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
     <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Forward_kinematics_v2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\H_leg.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\R_to_eulXYZ.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Forward kinematics\Weighted_error.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\A_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\B_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q1.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\C_q2.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\Inverse_kinematics.m&lt;/file&gt;&lt;file&gt;C:\Users\valer\Documents\Innopolis\Diploma work\PSM git\Inverse kinematics\q3_find.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
@@ -1066,7 +1066,7 @@
     </unset>
     <fileset.entrypoints>
       <file custom-data-expanded="false" value="${PROJECT_ROOT}\Forward_kinematics_v2.m">
-        <Marker>1585747486576</Marker>
+        <Marker>1585911060076</Marker>
       </file>
     </fileset.entrypoints>
     <fileset.testbench />
