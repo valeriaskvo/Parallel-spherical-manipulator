@@ -19,7 +19,7 @@
 
 /* Function Declarations */
 real_T Cost_function(const emlrtStack *sp, const real_T x[3], real_T
-                     system_parameters[5], const emxArray_real_T *phi_set,
-                     real_T allowed_radius, real_T version);
+                     system_parameters[5], real_T step, real_T allowed_radius,
+                     real_T version);
 
 /* End of code generation (Cost_function.h) */

@@ -42,14 +42,11 @@ build $builddir/Cost_function_initialize.o : cc C$:/Users/valer/Documents/Innopo
 build $builddir/Cost_function_terminate.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function_terminate.c
 build $builddir/Cost_function.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Cost_function.c
 build $builddir/Inverse_kinematics.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Inverse_kinematics.c
-build $builddir/eml_int_forloop_overflow_check.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/eml_int_forloop_overflow_check.c
 build $builddir/J_leg.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/J_leg.c
 build $builddir/xzsvdc.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xzsvdc.c
 build $builddir/xnrm2.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xnrm2.c
 build $builddir/eps.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/eps.c
 build $builddir/xrotg.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/xrotg.c
-build $builddir/Sing_v2.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Sing_v2.c
-build $builddir/Workspace_calculation.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Workspace_calculation.c
 build $builddir/Collision_check.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/Collision_check.c
 build $builddir/_coder_Cost_function_api.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/interface/_coder_Cost_function_api.c
 build $builddir/_coder_Cost_function_mex.o : cc C$:/Users/valer/Documents/Innopolis/Diploma$ work/PSM$ git/Workspace$ optimization/codegen/mex/Cost_function/interface/_coder_Cost_function_mex.c
@@ -58,4 +55,4 @@ build $builddir/_coder_Cost_function_info.o : cc C$:/Users/valer/Documents/Innop
 build $builddir/c_mexapi_version.o : cc C$:/Program$ Files/MATLAB/R2019b/extern/version/c_mexapi_version.c
 
 # Link
-build $root\Cost_function_mex.mexw64 : link $builddir\rt_nonfinite.o $builddir\Cost_function_data.o $builddir\Cost_function_initialize.o $builddir\Cost_function_terminate.o $builddir\Cost_function.o $builddir\Inverse_kinematics.o $builddir\eml_int_forloop_overflow_check.o $builddir\J_leg.o $builddir\xzsvdc.o $builddir\xnrm2.o $builddir\eps.o $builddir\xrotg.o $builddir\Sing_v2.o $builddir\Workspace_calculation.o $builddir\Collision_check.o $builddir\_coder_Cost_function_api.o $builddir\_coder_Cost_function_mex.o $builddir\Cost_function_emxutil.o $builddir\_coder_Cost_function_info.o $builddir\c_mexapi_version.o 
+build $root\Cost_function_mex.mexw64 : link $builddir\rt_nonfinite.o $builddir\Cost_function_data.o $builddir\Cost_function_initialize.o $builddir\Cost_function_terminate.o $builddir\Cost_function.o $builddir\Inverse_kinematics.o $builddir\J_leg.o $builddir\xzsvdc.o $builddir\xnrm2.o $builddir\eps.o $builddir\xrotg.o $builddir\Collision_check.o $builddir\_coder_Cost_function_api.o $builddir\_coder_Cost_function_mex.o $builddir\Cost_function_emxutil.o $builddir\_coder_Cost_function_info.o $builddir\c_mexapi_version.o 

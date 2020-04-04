@@ -9,9 +9,9 @@ scatter3(phi_set(workspace==3,1),phi_set(workspace==3,2),phi_set(workspace==3,3)
 legend('Workspace point', 'Serial singularity', 'Parallel singularity','Collision')
 title('Robot workspace in XYZ Euler angles orientation space')
 axis equal
-xlabel('\phi_1 deg')
-ylabel('\phi_2 deg')
-zlabel('\phi_3 deg')
+xlabel('\phi_1 [deg]')
+ylabel('\phi_2 [deg]')
+zlabel('\phi_3 [deg]')
 
 figure()
 scatter3(cartesian_space(workspace==0,1),cartesian_space(workspace==0,2),cartesian_space(workspace==0,3),'g')

@@ -24,127 +24,77 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
   NULL                                 /* fSigMem */
 };
 
-emlrtRSInfo k_emlrtRSI = { 29,         /* lineNo */
+emlrtRSInfo t_emlrtRSI = { 29,         /* lineNo */
   "A_q1",                              /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\A_q1.m"/* pathName */
 };
 
-emlrtRSInfo l_emlrtRSI = { 55,         /* lineNo */
+emlrtRSInfo u_emlrtRSI = { 55,         /* lineNo */
   "power",                             /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\ops\\power.m"/* pathName */
 };
 
-emlrtRSInfo m_emlrtRSI = { 23,         /* lineNo */
+emlrtRSInfo v_emlrtRSI = { 23,         /* lineNo */
   "B_q1",                              /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\B_q1.m"/* pathName */
 };
 
-emlrtRSInfo n_emlrtRSI = { 29,         /* lineNo */
+emlrtRSInfo w_emlrtRSI = { 29,         /* lineNo */
   "C_q1",                              /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\C_q1.m"/* pathName */
 };
 
-emlrtRSInfo o_emlrtRSI = { 35,         /* lineNo */
+emlrtRSInfo x_emlrtRSI = { 35,         /* lineNo */
   "Inverse_kinematic_solver",          /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\Inverse_kinematics.m"/* pathName */
 };
 
-emlrtRSInfo p_emlrtRSI = { 37,         /* lineNo */
+emlrtRSInfo y_emlrtRSI = { 37,         /* lineNo */
   "Inverse_kinematic_solver",          /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Inverse kinematics\\Inverse_kinematics.m"/* pathName */
 };
 
-emlrtRSInfo s_emlrtRSI = { 45,         /* lineNo */
+emlrtRSInfo db_emlrtRSI = { 45,        /* lineNo */
   "mpower",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\ops\\mpower.m"/* pathName */
 };
 
-emlrtRSInfo v_emlrtRSI = { 10,         /* lineNo */
-  "Sing_v1",                           /* fcnName */
-  "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v1.m"/* pathName */
-};
-
-emlrtRSInfo w_emlrtRSI = { 13,         /* lineNo */
-  "Sing_v1",                           /* fcnName */
-  "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v1.m"/* pathName */
-};
-
-emlrtRSInfo x_emlrtRSI = { 21,         /* lineNo */
-  "Sing_v1",                           /* fcnName */
-  "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Sing_v1.m"/* pathName */
-};
-
-emlrtRSInfo y_emlrtRSI = { 11,         /* lineNo */
-  "rank",                              /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\matfun\\rank.m"/* pathName */
-};
-
-emlrtRSInfo ab_emlrtRSI = { 20,        /* lineNo */
-  "local_rank",                        /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\matfun\\rank.m"/* pathName */
-};
-
-emlrtRSInfo bb_emlrtRSI = { 22,        /* lineNo */
-  "local_rank",                        /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\matfun\\rank.m"/* pathName */
-};
-
-emlrtRSInfo cb_emlrtRSI = { 15,        /* lineNo */
-  "svd",                               /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\matfun\\svd.m"/* pathName */
-};
-
-emlrtRSInfo db_emlrtRSI = { 29,        /* lineNo */
-  "svd",                               /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\svd.m"/* pathName */
-};
-
-emlrtRSInfo eb_emlrtRSI = { 101,       /* lineNo */
-  "callLAPACK",                        /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\svd.m"/* pathName */
-};
-
-emlrtRSInfo fb_emlrtRSI = { 34,        /* lineNo */
-  "xgesvd",                            /* fcnName */
-  "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+lapack\\xgesvd.m"/* pathName */
-};
-
-emlrtRSInfo gb_emlrtRSI = { 407,       /* lineNo */
+emlrtRSInfo nb_emlrtRSI = { 407,       /* lineNo */
   "xzsvdc",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+reflapack\\xzsvdc.m"/* pathName */
 };
 
-emlrtRSInfo hb_emlrtRSI = { 394,       /* lineNo */
+emlrtRSInfo ob_emlrtRSI = { 394,       /* lineNo */
   "xzsvdc",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+reflapack\\xzsvdc.m"/* pathName */
 };
 
-emlrtRSInfo jb_emlrtRSI = { 353,       /* lineNo */
+emlrtRSInfo qb_emlrtRSI = { 353,       /* lineNo */
   "xzsvdc",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+reflapack\\xzsvdc.m"/* pathName */
 };
 
-emlrtRSInfo kb_emlrtRSI = { 334,       /* lineNo */
+emlrtRSInfo rb_emlrtRSI = { 334,       /* lineNo */
   "xzsvdc",                            /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+reflapack\\xzsvdc.m"/* pathName */
 };
 
-emlrtRSInfo lb_emlrtRSI = { 28,        /* lineNo */
+emlrtRSInfo sb_emlrtRSI = { 28,        /* lineNo */
   "xrotg",                             /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+blas\\xrotg.m"/* pathName */
 };
 
-emlrtRSInfo mb_emlrtRSI = { 27,        /* lineNo */
+emlrtRSInfo tb_emlrtRSI = { 27,        /* lineNo */
   "xrotg",                             /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\eml\\+coder\\+internal\\+blas\\xrotg.m"/* pathName */
 };
 
-emlrtRSInfo nb_emlrtRSI = { 46,        /* lineNo */
+emlrtRSInfo ub_emlrtRSI = { 46,        /* lineNo */
   "eps",                               /* fcnName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\elmat\\eps.m"/* pathName */
 };
 
-emlrtRTEInfo emlrtRTEI = { 13,         /* lineNo */
+emlrtRTEInfo c_emlrtRTEI = { 13,       /* lineNo */
   9,                                   /* colNo */
   "sqrt",                              /* fName */
   "C:\\Program Files\\MATLAB\\R2019b\\toolbox\\eml\\lib\\matlab\\elfun\\sqrt.m"/* pName */

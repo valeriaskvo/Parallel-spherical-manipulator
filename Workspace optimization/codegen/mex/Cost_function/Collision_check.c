@@ -15,17 +15,17 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo ub_emlrtRSI = { 17, /* lineNo */
+static emlrtRSInfo yb_emlrtRSI = { 17, /* lineNo */
   "Collision_check",                   /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Collision_check.m"/* pathName */
 };
 
-static emlrtRSInfo vb_emlrtRSI = { 32, /* lineNo */
+static emlrtRSInfo ac_emlrtRSI = { 32, /* lineNo */
   "Collision_check",                   /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Collision_check.m"/* pathName */
 };
 
-static emlrtRSInfo wb_emlrtRSI = { 33, /* lineNo */
+static emlrtRSInfo bc_emlrtRSI = { 33, /* lineNo */
   "Collision_check",                   /* fcnName */
   "C:\\Users\\valer\\Documents\\Innopolis\\Diploma work\\PSM git\\Workspace optimization\\Collision_check.m"/* pathName */
 };
@@ -90,7 +90,7 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
   f_Rx_tmp = muDoubleScalarCos(eta_i);
   for (i = 0; i < 3; i++) {
     eta_i = (((real_T)i + 1.0) - 1.0) * 2.0 * 3.1415926535897931 / 3.0;
-    st.site = &ub_emlrtRSI;
+    st.site = &yb_emlrtRSI;
     Inverse_kinematics(&st, eta_i, system_parameters, phi_ee, q);
 
     /*  Rotation matrix around z-axis */
@@ -438,9 +438,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
   eta_i += d * d;
   d = O_w[2] - O_v[5];
   eta_i += d * d;
-  st.site = &vb_emlrtRSI;
+  st.site = &ac_emlrtRSI;
   if (eta_i < 0.0) {
-    emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
       "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
       4, "sqrt");
   }
@@ -454,9 +454,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
     eta_i += d * d;
     d = O_w[5] - O_v[8];
     eta_i += d * d;
-    st.site = &vb_emlrtRSI;
+    st.site = &ac_emlrtRSI;
     if (eta_i < 0.0) {
-      emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
         "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
         4, "sqrt");
     }
@@ -470,9 +470,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
       eta_i += d * d;
       d = O_w[8] - O_v[2];
       eta_i += d * d;
-      st.site = &vb_emlrtRSI;
+      st.site = &ac_emlrtRSI;
       if (eta_i < 0.0) {
-        emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
           "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3,
           4, 4, "sqrt");
       }
@@ -491,9 +491,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
   eta_i += d * d;
   d = O_w[2] - O_w[5];
   eta_i += d * d;
-  st.site = &wb_emlrtRSI;
+  st.site = &bc_emlrtRSI;
   if (eta_i < 0.0) {
-    emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
       "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
       4, "sqrt");
   }
@@ -507,9 +507,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
     eta_i += d * d;
     d = O_w[5] - O_w[8];
     eta_i += d * d;
-    st.site = &wb_emlrtRSI;
+    st.site = &bc_emlrtRSI;
     if (eta_i < 0.0) {
-      emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
         "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
         4, "sqrt");
     }
@@ -523,9 +523,9 @@ boolean_T Collision_check(const emlrtStack *sp, const real_T system_parameters[5
       eta_i += d * d;
       d = O_w[2] - O_w[8];
       eta_i += d * d;
-      st.site = &wb_emlrtRSI;
+      st.site = &bc_emlrtRSI;
       if (eta_i < 0.0) {
-        emlrtErrorWithMessageIdR2018a(&st, &emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&st, &c_emlrtRTEI,
           "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3,
           4, 4, "sqrt");
       }
