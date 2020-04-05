@@ -27,7 +27,7 @@ for i=1:3
     q2=q(2);
     q3=q(3);
     
-    fprintf("Leg %d: q_1=%0.2f, q_2=%0.2f, q_3=%0.2f\n",i,rad2deg(q1),rad2deg(q2),rad2deg(q3))
+    fprintf("Leg %d: q_1%d=%0.2f [deg], q_2%d=%0.2f, q_3%d=%0.2f\n",i,i,rad2deg(q1),i,rad2deg(q2),i,rad2deg(q3))
     
 %   Forward kinematics for leg
     H_base=R_T(Rz(-eta_i))*Ty(L_base)*R_T(Rx(pi+beta_1))*R_T(Rz(q1));
