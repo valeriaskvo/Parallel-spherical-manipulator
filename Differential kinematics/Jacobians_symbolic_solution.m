@@ -14,7 +14,7 @@ q_leg=[q_1; q_2; q_3];
 R_q1=Rz(q_1)*Rx(alpha_1);
 R_q2=Rz(q_2)*Rx(alpha_2);
 R_q3=Rz(q_3);
-R=Rz(-eta_i)*Rx(pi+beta_1)*R_q1*R_q2*R_q3*Rx(beta_2)*Rz(eta_i)
+R=Rz(-eta_i)*Rx(pi+beta_1)*R_q2*R_q3*Rx(beta_2)*Rz(eta_i);
 
 dR_q1=diff(R_q1,q_1)*dq_1;
 dR_q2=diff(R_q2,q_2)*dq_2;
@@ -63,7 +63,7 @@ J=simplify([A_1,A_2,A_3])
 
 matlabFunction(J,'file','J_ee.m','vars',{phi_ee})
 
-% Compute Jacobians for each legs with different joint angles
+%% Compute Jacobians for each legs with different joint angles
 
 syms q_11 q_21 q_31 real;
 syms q_12 q_22 q_32 real;
