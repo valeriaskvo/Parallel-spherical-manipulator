@@ -74,9 +74,9 @@ end
 
 function []=deflection_map_vis(X,Y,Z,title_name)
 figure()
-grid on
 contourf(rad2deg(X),rad2deg(Y),Z)
 xlabel('\phi_1 [deg]')
 ylabel('\phi_2 [deg]')
+grid on
 title(title_name)
 end
