@@ -104,18 +104,18 @@ end
 
 
 function K_global=K_global(r,alpha,K,R)
-L=[0,-(r*cos(pi/2-alpha/2)),0;
-   (r*cos(pi/2-alpha/2)),0,-(r*sin(pi/2-alpha/2));
-   0,(r*sin(pi/2-alpha/2)),0];
+L=[0,-(r*sin(alpha/2)),0;
+   (r*sin(alpha/2)),0,-(r*cos(alpha/2));
+   0,(r*cos(alpha/2)),0];
 R=R(1:3,1:3);
 K_22=K;
-ka=K(1:3,1:3);
-kb=K(1:3,4:6);
-kc=K(4:6,1:3);
-kd=K(4:6,4:6);
-K_11=[ka, kb-ka*L;kc+L*ka, kd-kc*L+L*kb-L*ka*L];
-K_12=[-ka, -kb;-kc-L*ka, -kd-L*kb];
-K_21=[-ka, -kb+ka*L;-kc, -kd+kc*L];
+A=K(1:3,1:3);
+B=K(1:3,4:6);
+C=K(4:6,1:3);
+D=K(4:6,4:6);
+K_11=[A, B-A*L;C+L*A, D-C*L+L*B-L*A*L];
+K_12=[-A, -B;-C-L*A, -D-L*B];
+K_21=[-A, -B+A*L;-C, -D+C*L];
 
 R_global=[R,zeros(3,3),zeros(3,3),zeros(3,3);
           zeros(3,3),R,zeros(3,3),zeros(3,3);

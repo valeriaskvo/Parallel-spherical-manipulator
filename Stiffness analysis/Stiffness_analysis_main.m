@@ -22,7 +22,7 @@ phi_ee=[phi_1;
         phi_3];
 
 th_link=10*10^(-3);             % m (link thickness)
-A=th_link^2;                    % m^2 (cross-sectional area of link)
+A=th_link^2                    % m^2 (cross-sectional area of link)
 K_act=10^6;                     % N/rad (actuator stiffness)
 
 % Moment of Inertia at Origin for link 1 (g mm^2)
@@ -30,18 +30,18 @@ Ixx1 = 4607.684;
 Iyy1 = 2.829E+04;
 Izz1 = 3.272E+04;
 
-I1=[Ixx1, Iyy1, Izz1]*1E-9;    % kg*m^2
+I1=[Ixx1, Iyy1, Izz1]*1E-9% kg*m^2
 
 % Moment of Inertia at Origin for link 2 (g mm^2)
 Ixx2 = 4607.684;
 Iyy2 = 2.829E+04;
 Izz2 = 3.272E+04;
-I2=[Ixx2, Iyy2, Izz2]*1E-9;    % kg*m^2           
+I2=[Ixx2, Iyy2, Izz2]*1E-9    % kg*m^2           
 
 K_l1=K_link(system_radius,alpha_1,I1(1),I1(2),I1(3),A);
 K_l2=K_link(system_radius,alpha_2,I2(1),I2(2),I2(3),A);
 
-step=deg2rad(5);
+step=deg2rad(1);
 
 angles=-pi/2+step:step:pi/2-step;
 
