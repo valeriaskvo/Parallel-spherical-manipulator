@@ -28,10 +28,18 @@ for i=1:3
     H0(1:3,4)=[0;0;0];
     H0=H0';
     
-    dH_q1=H_base*dRz(q_1)*H_link_1*R_T(Rz(q_2))*H_link_2*R_T(Rz(q_3))*H_plat*H0;
-    J_q1=Jnum(dH_q1);
-    dH_q2=H_base*R_T(Rz(q_1))*H_link_1*dRz(q_2)*H_link_2*R_T(Rz(q_3))*H_plat*H0;
-    J_q2=Jnum(dH_q2);
+    if i==1
+        dH_q1=H_base*dRz(0)*H_link_1*R_T(Rz(q_2))*H_link_2*R_T(Rz(q_3))*H_plat*H0;
+        J_q1=Jnum(dH_q1);
+        dH_q2=H_base*R_T(Rz(q_1))*H_link_1*dRz(0)*H_link_2*R_T(Rz(q_3))*H_plat*H0;
+        J_q2=Jnum(dH_q2);
+    else
+        dH_q1=H_base*dRz(q_1)*H_link_1*R_T(Rz(q_2))*H_link_2*R_T(Rz(q_3))*H_plat*H0;
+        J_q1=Jnum(dH_q1);
+        dH_q2=H_base*R_T(Rz(q_1))*H_link_1*dRz(0)*H_link_2*R_T(Rz(q_3))*H_plat*H0;
+        J_q2=Jnum(dH_q2);
+    end
+    
     dH_q3=H_base*R_T(Rz(q_1))*H_link_1*R_T(Rz(q_2))*H_link_2*dRz(q_3)*H_plat*H0;
     J_q3=Jnum(dH_q3);
     
