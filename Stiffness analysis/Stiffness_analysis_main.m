@@ -1,3 +1,5 @@
+addpath(genpath('..\..\PSM git'))
+
 clear all;
 close all;
 
