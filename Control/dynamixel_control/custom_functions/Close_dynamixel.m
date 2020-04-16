@@ -1,3 +1,5 @@
+% Created by Valeria Skvo
+
 function []=Close_dynamixel(IDs)
 global PROTOCOL_VERSION COMM_SUCCESS
 global ADDR_TORQUE_ENABLE torque_disable

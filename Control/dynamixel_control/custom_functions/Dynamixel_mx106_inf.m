@@ -1,3 +1,5 @@
+% Created by Valeria Skvo
+
 function []=Dynamixel_mx106_inf()
 global BAUDRATE DEVICENAME PROTOCOL_VERSION COMM_SUCCESS COMM_TX_FAIL
 BAUDRATE                 = 3e6;
@@ -19,13 +21,13 @@ position_control_mode   = typecast(int16(4),'uint16');
 
 global ADDR_CURRENT_LIMIT current_limit
 ADDR_CURRENT_LIMIT      = 38;
-current_limit           = typecast(int16(2047),'uint16');
+current_limit           = int16(2047);
 
 global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min
 ADDR_POSITION_LIMIT_max = 48;
-pos_lim_max             = typecast(int16(4096),'uint16');
+pos_lim_max             = int16(4096);
 ADDR_POSITION_LIMIT_min = 52;
-pos_lim_min             = typecast(int16(0),'uint16');
+pos_lim_min             = int16(0);
 
 global ADDR_MOVING_THRESHOLD moving_threshold
 ADDR_MOVING_THRESHOLD   = 24;

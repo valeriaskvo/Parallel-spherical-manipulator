@@ -1,3 +1,5 @@
+% Created by Valeria Skvo
+
 function [portFlag,baudRateFlag]=Launch_dynamixel(IDs, control_mode)
 Dynamixel_mx106_inf()
 global BAUDRATE DEVICENAME PROTOCOL_VERSION COMM_SUCCESS
@@ -87,5 +89,33 @@ for i=1:length(IDs)
     else
         fprintf('Dynamixel [ID:%d] has been successfully connected \n',DXL_ID);
     end
+end
+
+% Add the group read and group write for position
+global ADDR_GOAL_POSITION ADDR_PRESENT_POSITION LEN_POSITION groupwrite_pos groupread_pos
+groupwrite_pos=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_POSITION, LEN_POSITION);
+groupread_pos = groupSyncRead(port_num, PROTOCOL_VERSION, ADDR_PRESENT_POSITION, LEN_POSITION);
+
+for i=1:length(IDs)
+    DXL_ID=IDs(i);
+    dxl_addparam_result = groupSyncReadAddParam(groupread_pos, DXL_ID);
+    if dxl_addparam_result ~= true
+        fprintf('[ID:%03d] groupSyncRead addparam for POSITION failed', DXL_ID);
+        return;
+    end    
+end
+
+% Add the group read and group write for current
+global ADDR_GOAL_CURRENT ADDR_PRESENT_CURRENT LEN_CURRENT groupwrite_cur groupread_cur
+groupwrite_cur=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_CURRENT, LEN_CURRENT);
+groupread_cur = groupSyncRead(port_num, PROTOCOL_VERSION, ADDR_PRESENT_CURRENT, LEN_CURRENT);
+
+for i=1:length(IDs)
+    DXL_ID=IDs(i);
+    dxl_addparam_result = groupSyncReadAddParam(groupread_cur, DXL_ID);
+    if dxl_addparam_result ~= true
+        fprintf('[ID:%03d] groupSyncRead addparam for CURRENT failed', DXL_ID);
+        return;
+    end    
 end
 end
