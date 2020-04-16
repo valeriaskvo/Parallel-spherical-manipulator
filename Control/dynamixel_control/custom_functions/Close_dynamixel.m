@@ -1,12 +1,12 @@
 function []=Close_dynamixel(IDs)
 global PROTOCOL_VERSION COMM_SUCCESS
-global ADDR_TORQUE_ENABLE
+global ADDR_TORQUE_ENABLE torque_disable
 
 global port_num lib_name
 
 for i=1:length(IDs)
     DXL_ID=IDs(i);
-    write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, 0);
+    write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_disable);
     dxl_comm_result = getLastTxRxResult(port_num, PROTOCOL_VERSION);
     dxl_error = getLastRxPacketError(port_num, PROTOCOL_VERSION);
     if dxl_comm_result ~= COMM_SUCCESS

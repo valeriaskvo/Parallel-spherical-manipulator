@@ -1,8 +1,6 @@
-function [portFlag,baudRateFlag]=Launch_dynamixel(IDs)
-Set_addr_table_dynamixel()
+function [portFlag,baudRateFlag]=Launch_dynamixel(IDs, control_mode)
+Dynamixel_mx106_inf()
 global BAUDRATE DEVICENAME PROTOCOL_VERSION COMM_SUCCESS
-global ADDR_TORQUE_ENABLE
-
 global lib_name
 lib_name = '';
 
@@ -44,19 +42,42 @@ end
 
 % Set port baudrate
 if (setBaudRate(port_num, BAUDRATE))
-    fprintf('Succeeded to change the baudrate!\n');
+    fprintf('Succeeded to set the baudrate!\n');
 else
     unloadlibrary(lib_name);
-    fprintf('Failed to change the baudrate!\n');
+    fprintf('Failed to set the baudrate!\n');
     input('Press any key to terminate...\n');
     return;
 end
 
 portFlag=openPort(port_num);
 baudRateFlag=setBaudRate(port_num, BAUDRATE);
+
+% Set initial parameters
+global ADDR_OPERATING_MODE current_control_mode position_control_mode
+global ADDR_CURRENT_LIMIT current_limit
+global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min
+global ADDR_MOVING_THRESHOLD moving_threshold
+
 for i=1:length(IDs)
     DXL_ID=IDs(i);
-    write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, 1);
+    write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_MOVING_THRESHOLD, moving_threshold);
+    if control_mode=="position"
+        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, position_control_mode);
+        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_max, pos_lim_max);
+        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_min, pos_lim_min);
+    else
+        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, current_control_mode);
+        write2ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_CURRENT_LIMIT, current_limit);
+    end
+end
+
+
+% Activate torqie
+global ADDR_TORQUE_ENABLE torque_enable
+for i=1:length(IDs)
+    DXL_ID=IDs(i);
+    write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_enable);
     dxl_comm_result = getLastTxRxResult(port_num, PROTOCOL_VERSION);
     dxl_error = getLastRxPacketError(port_num, PROTOCOL_VERSION);
     if dxl_comm_result ~= COMM_SUCCESS
