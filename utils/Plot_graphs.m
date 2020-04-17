@@ -1,5 +1,7 @@
-function []=Plot_graphs(x,y,xname,yname,titlename,xlim_value,ylim_value,legenda)
-figure()
+function []=Plot_graphs(x,y,xname,yname,titlename,xlim_value,ylim_value,legenda,sub_fig)
+if sub_fig==0
+    figure()
+end
 [a,b]=size(y);
 [c,d]=size(x);
 if b==1

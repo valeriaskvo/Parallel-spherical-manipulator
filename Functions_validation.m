@@ -43,8 +43,8 @@ for i=1:length(angles)
     end
 end
 
-Plot_graphs(rad2deg(angles'),error_v1,"\phi [deg]","Error of solution [deg^2]","Correctness of the FK solution for Lower joints control configuration",[-90 90],[-5000 max(max(error_v1))+5000],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"])
-Plot_graphs(rad2deg(angles'),error_v2,"\phi [deg]","Error of solution [deg^2]","Correctness of the FK solution for Mid joints control configuration",[-90 90],[-5000 max(max(error_v2))+5000],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"])
+Plot_graphs(rad2deg(angles'),error_v1,"\phi [deg]","Error of solution [deg^2]","Correctness of the FK solution for Lower joints control configuration",[-90 90],[-5000 max(max(error_v1))+5000],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"],0)
+Plot_graphs(rad2deg(angles'),error_v2,"\phi [deg]","Error of solution [deg^2]","Correctness of the FK solution for Mid joints control configuration",[-90 90],[-5000 max(max(error_v2))+5000],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"],0)
 
 %% Validation differential kinematics
 dphi=[deg2rad(0.1); deg2rad(0.1); deg2rad(0.1)];
@@ -62,8 +62,8 @@ for i=1:length(angles)
     end
 end
 
-Plot_graphs(rad2deg(angles'),error_v1,"\phi [deg]","Error of solution [deg^2]","Correctness of the DK solution for Lower joints control configuration",[-90 90],[0 0.5],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"])
-Plot_graphs(rad2deg(angles'),error_v2,"\phi [deg]","Error of solution [deg^2]","Correctness of the DK solution for Mid joints control configuration",[-90 90],[0 0.5],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"])
+Plot_graphs(rad2deg(angles'),error_v1,"\phi [deg]","Error of solution [deg^2]","Correctness of the DK solution for Lower joints control configuration",[-90 90],[0 0.5],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"],0)
+Plot_graphs(rad2deg(angles'),error_v2,"\phi [deg]","Error of solution [deg^2]","Correctness of the DK solution for Mid joints control configuration",[-90 90],[0 0.5],["Rotation around x-axis (\phi_1)","Rotation around y-axis (\phi_2)","Rotation around z-axis (\phi_3)"],0)
 
 
 
