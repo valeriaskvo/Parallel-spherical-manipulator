@@ -46,7 +46,7 @@ ADDR_PRESENT_CURRENT    = 126;
 LEN_CURRENT             = 2;
 
 % Addr and other for time
-global ADDR_REALTIME_TIC T_INIT
+global ADDR_REALTIME_TIC MAX_TIME
 ADDR_REALTIME_TIC       = 120;
-T_INIT                  = 0;
+MAX_TIME                = (2^15-1)*10^-3;
 end
