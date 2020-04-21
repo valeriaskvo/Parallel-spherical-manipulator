@@ -6,17 +6,17 @@ k_dtheta=0.1;
 t=60;
 
 %% Finding trajectories for dynamics model
-% dtype="dynamics";
-% w=2*pi*linspace(0.1,1.5,5)';
-% A=1./w.^2;
-% const=[A;w];
-% opt_par=1:length(const);
-% [const,x,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,[],k_dtheta,dtype);
-% save(sprintf("trajectories/trajectory_%s.mat",dtype),'const','k_dtheta')
+dtype="dynamics";
+w=2*pi*linspace(0.1,1.5,5)';
+A=1./w.^2;
+const=[A;w];
+opt_par=1:length(const);
+[const,x,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,[],k_dtheta,dtype);
+save(sprintf("trajectories/trajectory_%s.mat",dtype),'const','k_dtheta')
 
 %% Finding trajectories for energy model
 dtype="energy";
-w=2*pi*linspace(0.1,1.5,5)';
+w=2*pi*linspace(0.1,1.5,15)';
 A=1./w.^2;
 const=[A;w];
 opt_par=1:length(w);
