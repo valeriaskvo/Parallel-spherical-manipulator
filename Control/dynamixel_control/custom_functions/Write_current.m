@@ -11,7 +11,7 @@ for i=1:length(variable)
        variable(i)=-current_limit;
    end 
 end
-variable=typecast(int16(variable),'uint16');
+variable=typecast(int16(variable),'uint16')
 global LEN_CURRENT groupwrite_cur
 
 for i=1:length(IDs)
