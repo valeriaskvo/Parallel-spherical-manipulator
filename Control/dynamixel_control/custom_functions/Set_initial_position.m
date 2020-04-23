@@ -1,26 +1,18 @@
 % Created by Valeria Skvo
 
 function []=Set_initial_position(IDs,control_mode,goal_position)
-global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min
+global pos_lim_max pos_lim_min
 
 pos_threshold=(double(pos_lim_max)-double(pos_lim_min))*0.001*pi/2048;
 
-global port_num PROTOCOL_VERSION
-global ADDR_TORQUE_ENABLE torque_enable torque_disable
-global ADDR_OPERATING_MODE current_control_mode position_control_mode
 if control_mode~="position"
-    for i=1:length(IDs)
-        DXL_ID=IDs(i);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_disable);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, position_control_mode);
-        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_max, pos_lim_max);
-        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_min, pos_lim_min);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_enable);
-    end
+    Torque_enable_or_disable(IDs,0)
+    Change_contol_mode(IDs,"position")
+    Torque_enable_or_disable(IDs,1)
 end
 
 while 1
-    Write_position(IDs,goal_position)
+    Write_position(IDs,goal_position,[])
     position=Read_position(IDs);
     err=position-goal_position;
     if sum(abs(err)>pos_threshold)==0
@@ -31,11 +23,8 @@ while 1
 end
 
 if control_mode~="position"
-    for i=1:length(IDs)
-        DXL_ID=IDs(i);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_disable);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, current_control_mode);
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_TORQUE_ENABLE, torque_enable);
-    end
+    Torque_enable_or_disable(IDs,0)
+    Change_contol_mode(IDs,control_mode)
+    Torque_enable_or_disable(IDs,1)
 end
 end

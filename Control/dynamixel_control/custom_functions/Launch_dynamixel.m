@@ -56,24 +56,41 @@ portFlag=openPort(port_num);
 baudRateFlag=setBaudRate(port_num, BAUDRATE);
 
 % Set initial parameters
-global ADDR_OPERATING_MODE current_control_mode position_control_mode
-global ADDR_CURRENT_LIMIT current_limit
-global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min
+global ADDR_RETURN_DELAY_TIME DELAY_TIME
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_RETURN_DELAY_TIME, 1);
+Group_write(IDs,groupwrite,1,DELAY_TIME,"DELAY TIME");
+clear groupwrite ADDR_RETURN_DELAY_TIME DELAY_TIME;
+
+Change_contol_mode(IDs,control_mode)
+
+% Set limits
+global ADDR_CURRENT_LIMIT current_limit LEN_CURRENT
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_CURRENT_LIMIT, LEN_CURRENT);
+Group_write(IDs,groupwrite,LEN_CURRENT,current_limit,"CURRENT LIMIT");
+clear groupwrite ADDR_CURRENT_LIMIT;
+
+global ADDR_PWM_LIMIT pwm_limit LEN_PWM
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_PWM_LIMIT, LEN_PWM);
+Group_write(IDs,groupwrite,LEN_PWM,pwm_limit,"PWM LIMIT");
+clear groupwrite ADDR_PWM_LIMIT;
+
+global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min LEN_POSITION
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_POSITION_LIMIT_max, LEN_POSITION);
+Group_write(IDs,groupwrite,LEN_POSITION,pos_lim_max,"POSITION LIMIT");
+clear groupwrite ADDR_POSITION_LIMIT_max;
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_POSITION_LIMIT_min, LEN_POSITION);
+Group_write(IDs,groupwrite,LEN_POSITION,pos_lim_min,"POSITION LIMIT");
+clear groupwrite ADDR_POSITION_LIMIT_min;
+
+global ADDR_VELOCITY_LIMIT velocity_limit LEN_VELOCITY
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_VELOCITY_LIMIT, LEN_VELOCITY);
+Group_write(IDs,groupwrite,LEN_VELOCITY,velocity_limit,"VELOCITY LIMIT");
+clear groupwrite ADDR_VELOCITY_LIMIT;
+
 global ADDR_MOVING_THRESHOLD moving_threshold
-
-for i=1:length(IDs)
-    DXL_ID=IDs(i);
-    write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_MOVING_THRESHOLD, moving_threshold);
-    if control_mode=="position"
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, position_control_mode);
-        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_max, pos_lim_max);
-        write4ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_POSITION_LIMIT_min, pos_lim_min);
-    else
-        write1ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_OPERATING_MODE, current_control_mode);
-        write2ByteTxRx(port_num, PROTOCOL_VERSION, DXL_ID, ADDR_CURRENT_LIMIT, current_limit);
-    end
-end
-
+groupwrite=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_MOVING_THRESHOLD, 4);
+Group_write(IDs,groupwrite,4,moving_threshold,"MOVING THRESHOLD");
+clear groupwrite ADDR_MOVING_THRESHOLD moving_threshold;
 
 % Activate torqie
 global ADDR_TORQUE_ENABLE torque_enable
@@ -91,31 +108,27 @@ for i=1:length(IDs)
     end
 end
 
-% Add the group read and group write for position
-global ADDR_GOAL_POSITION ADDR_PRESENT_POSITION LEN_POSITION groupwrite_pos groupread_pos
-groupwrite_pos=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_POSITION, LEN_POSITION);
-groupread_pos = groupSyncRead(port_num, PROTOCOL_VERSION, ADDR_PRESENT_POSITION, LEN_POSITION);
-
-for i=1:length(IDs)
-    DXL_ID=IDs(i);
-    dxl_addparam_result = groupSyncReadAddParam(groupread_pos, DXL_ID);
-    if dxl_addparam_result ~= true
-        fprintf('[ID:%03d] groupSyncRead addparam for POSITION failed', DXL_ID);
-        return;
-    end    
-end
-
 % Add the group read and group write for current
-global ADDR_GOAL_CURRENT ADDR_PRESENT_CURRENT LEN_CURRENT groupwrite_cur groupread_cur
+global ADDR_GOAL_CURRENT ADDR_PRESENT_CURRENT groupwrite_cur groupread_cur
 groupwrite_cur=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_CURRENT, LEN_CURRENT);
-groupread_cur = groupSyncRead(port_num, PROTOCOL_VERSION, ADDR_PRESENT_CURRENT, LEN_CURRENT);
+groupread_cur=Add_group_read(IDs,port_num, PROTOCOL_VERSION, ADDR_PRESENT_CURRENT, LEN_CURRENT,'CURRENT');
 
-for i=1:length(IDs)
-    DXL_ID=IDs(i);
-    dxl_addparam_result = groupSyncReadAddParam(groupread_cur, DXL_ID);
-    if dxl_addparam_result ~= true
-        fprintf('[ID:%03d] groupSyncRead addparam for CURRENT failed', DXL_ID);
-        return;
-    end    
-end
+% Add the group read and group wrint for pwm
+global ADDR_GOAL_PWM ADDR_PRESENT_PWM groupwrite_pwm groupread_pwm
+groupwrite_pwm=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_PWM, LEN_PWM);
+groupread_pwm=Add_group_read(IDs,port_num, PROTOCOL_VERSION, ADDR_PRESENT_PWM, LEN_PWM,'PWM'); 
+
+% Add the group read and group write for position
+global ADDR_GOAL_POSITION ADDR_PRESENT_POSITION groupwrite_pos groupread_pos
+groupwrite_pos=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_POSITION, LEN_POSITION);
+groupread_pos=Add_group_read(IDs,port_num, PROTOCOL_VERSION, ADDR_PRESENT_POSITION, LEN_POSITION,'POSITION'); 
+
+global ADDR_PROFILE_VELOCITY LEN_PROFILE_VELOCITY non_control_velocity groupwrite_profile_vel
+groupwrite_profile_vel=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_PROFILE_VELOCITY, LEN_PROFILE_VELOCITY);
+Group_write(IDs,groupwrite_profile_vel,LEN_PROFILE_VELOCITY,non_control_velocity,'PROFILE VELOCITY');
+
+% Addr the group read and group write for velocity
+global ADDR_GOAL_VELOCITY ADDR_PRESENT_VELOCITY groupwrite_vel groupread_vel
+groupwrite_vel=groupSyncWrite(port_num, PROTOCOL_VERSION, ADDR_GOAL_VELOCITY, LEN_VELOCITY);
+groupread_vel=Add_group_read(IDs,port_num, PROTOCOL_VERSION, ADDR_PRESENT_VELOCITY, LEN_VELOCITY,'VELOCITY'); 
 end

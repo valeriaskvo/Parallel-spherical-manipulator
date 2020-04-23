@@ -1,3 +1,5 @@
+% Created by Valeria Skvo
+
 function [dt,t_init]=Get_real_time(IDs,t_init)
 global ADDR_REALTIME_TIC MAX_TIME
 global port_num PROTOCOL_VERSION
