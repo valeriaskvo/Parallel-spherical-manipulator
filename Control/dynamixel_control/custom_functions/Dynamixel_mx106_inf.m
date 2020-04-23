@@ -37,7 +37,7 @@ pwm_limit               = int16(885);
 
 global ADDR_POSITION_LIMIT_max ADDR_POSITION_LIMIT_min pos_lim_max pos_lim_min
 ADDR_POSITION_LIMIT_max = 48;
-pos_lim_max             = int16(4096);
+pos_lim_max             = int16(4096*2);
 ADDR_POSITION_LIMIT_min = 52;
 pos_lim_min             = int16(0);
 

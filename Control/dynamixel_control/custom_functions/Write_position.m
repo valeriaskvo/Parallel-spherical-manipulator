@@ -3,7 +3,7 @@
 function []=Write_position(IDs,pos,vel)
 global pos_lim_max pos_lim_min
 
-variable=pos*2048/pi;
+variable=(pos+2*pi)*2048/pi;
 for i=1:length(variable)
    if variable(i)>pos_lim_max
        variable(i)=pos_lim_max;

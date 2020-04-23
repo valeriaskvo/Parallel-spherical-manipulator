@@ -1,6 +1,5 @@
 function []=Group_write(IDs,groupwrite,LEN,variable,name)
 variable=typecast(int16(variable),'uint16');
-disp(variable)
 for i=1:length(IDs)
     DXL_ID=IDs(i);
     if length(variable)==1
