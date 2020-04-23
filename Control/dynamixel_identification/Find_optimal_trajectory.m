@@ -7,21 +7,41 @@ t=60;
 
 %% Finding trajectories for dynamics model
 dtype="dynamics";
-w=2*pi*linspace(0.1,1.5,5)';
+w=2*pi*linspace(0.1,1.5,2)';
 A=1./w.^2;
 const=[A;w];
 opt_par=1:length(const);
 [const,x,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,[],k_dtheta,dtype);
 save(sprintf("trajectories/trajectory_%s.mat",dtype),'const','k_dtheta')
 
-%% Finding trajectories for energy model
-dtype="energy";
-w=2*pi*linspace(0.1,1.5,15)';
-A=1./w.^2;
-const=[A;w];
-opt_par=1:length(w);
-[const,x,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,[],k_dtheta,dtype);
-save(sprintf("trajectories/trajectory_%s.mat",dtype),'const','k_dtheta')
+% %% Finding trajectories for energy model
+% dtype="energy";
+% w=2*pi*linspace(0.1,1.5,2)';
+% A=1./w.^2;
+% const=[A;w];
+% opt_par=1:length(w);
+% [const,x,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,[],k_dtheta,dtype);
+% save(sprintf("trajectories/trajectory_%s.mat",dtype),'const','k_dtheta')
+
+% dtype="energy";
+% load(sprintf("trajectories/trajectory_%s.mat",dtype))
+time=[300,1/50];
+[traj,t]=trajectory_for_ident(time,const);
+[Y,~]=generate_model_vectors(t,traj,zeros(size(traj(:,2))),dtype,k_dtheta,0);
+[~,S,~]=svd(Y);
+
+disp("Singular values of trajectory is:")
+disp(S(1:3,1:3))
+fprintf("Opt val: %.4f\n",(1-max([S(1,1),S(2,2),S(3,3)])/min([S(1,1),S(2,2),S(3,3)]))^2);
+
+figure()
+sgtitle(sprintf("Optimal generated trajectory function based on %s model\nFourier series with %d parameters",dtype,length(const)))
+subplot(3,1,1)
+Plot_graphs(t,traj(:,1),"t [sec]",'Position [rad]',[],[],[],[],1)
+subplot(3,1,2)
+Plot_graphs(t,traj(:,2),"t [sec]",'Velocity [rad/sec]',[],[],[],[],1)
+subplot(3,1,3)
+Plot_graphs(t,traj(:,3),"t [sec]",'Acceleration [rad^2/sec]',[],[],[],[],1)
 
 function [const,traj,opt_val]=Optimal_trajectory_for_ident(t,opt_par,const,x0,k_dtheta,dtype)
 if mod(length(const),2)==1
@@ -60,7 +80,7 @@ fprintf("Optimal trajectory was finding with optimal value: %0.2f\n",f_val)
 
 const(opt_par)=parameters_traj;
 [traj,t]=trajectory_for_ident(time,const);
-[Y,~]=generate_model_vectors(t,traj(:,2),traj(:,3),zeros(size(traj(:,2))),dtype,k_dtheta,0);
+[Y,~]=generate_model_vectors(t,traj,zeros(size(traj(:,2))),dtype,k_dtheta,0);
 [~,S,~]=svd(Y);
 
 disp("Singular values of trajectory is:")
@@ -81,10 +101,10 @@ function [cost]=cost_function(time,const,opt_par,x,k_dtheta,dtype)
 const(opt_par)=x;
 [traj,t]=trajectory_for_ident(time,const);
 
-[Y,~]=generate_model_vectors(t,traj(:,2),traj(:,3),zeros(size(traj(:,2))),dtype,k_dtheta,0);
+[Y,~]=generate_model_vectors(t,traj,zeros(size(traj(:,1))),dtype,k_dtheta,0);
 [~,S,~]=svd(Y);
 
-cost=(1-max([S(1,1),S(2,2),S(3,3)])/min([S(1,1),S(2,2),S(3,3)]))^2;
+cost=(1-max([S(1,1),S(2,2),S(3,3)])/min([S(1,1),S(2,2),S(3,3)]))^2-(sum(const(1:length(const)/2)));
 end
 
 function [c,ceq] = constr(time,const,opt_par,limits,x)

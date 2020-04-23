@@ -23,8 +23,11 @@ title(titlename)
 xlabel(xname)
 ylabel(yname)
 grid on
-if ~isempty(xlim_value) && ~isempty(ylim_value)
+if ~isempty(xlim_value)
     xlim(xlim_value)
+end
+
+if ~isempty(ylim_value)
     ylim(ylim_value) 
 end
 end
