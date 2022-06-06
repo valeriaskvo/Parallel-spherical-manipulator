@@ -23,10 +23,10 @@ input("Press any key")
 
 t_max = 10
 traj_params_1 = {"A":np.deg2rad(20),
-               "w":np.pi/2}
+               "w":np.pi}
 
 traj_params_2 = {"A":np.deg2rad(40),
-               "w":np.pi/4}
+               "w":np.pi/2}
 
 t0 = perf_counter()
 t = 0
