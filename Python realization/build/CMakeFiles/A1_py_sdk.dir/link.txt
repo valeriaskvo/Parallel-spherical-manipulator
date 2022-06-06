@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O3 -march=native -Wall  -shared  -o A1_py_sdk.cpython-36m-x86_64-linux-gnu.so CMakeFiles/A1_py_sdk.dir/A1_py.cpp.o  -L"/home/valeria/Parallel-spherical-manipulator/Python realization/lib" -Wl,-rpath,"/home/valeria/Parallel-spherical-manipulator/Python realization/lib" -lunitreeMotorSDK_Linux64 -flto 

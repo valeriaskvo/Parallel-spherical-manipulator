@@ -1,0 +1,5 @@
+/home/valeria/Parallel-spherical-manipulator/Python realization/build/CMakeFiles/rebuild_cache.dir
+/home/valeria/Parallel-spherical-manipulator/Python realization/build/CMakeFiles/A1_py_sdk.dir
+/home/valeria/Parallel-spherical-manipulator/Python realization/build/CMakeFiles/edit_cache.dir
+/home/valeria/Parallel-spherical-manipulator/Python realization/build/pybind11/CMakeFiles/rebuild_cache.dir
+/home/valeria/Parallel-spherical-manipulator/Python realization/build/pybind11/CMakeFiles/edit_cache.dir
