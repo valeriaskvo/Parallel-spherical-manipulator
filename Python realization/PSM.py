@@ -1,4 +1,5 @@
-from math import sin, cos, pi, atan, sqrt, acos
+from math import sin, cos, pi, atan, sqrt, asin, acos, atan2
+from scipy.optimize import minimize
 import numpy as np
 
 class Asymmetry_PSM(object):
@@ -191,6 +192,72 @@ class Asymmetry_PSM(object):
     
     return self.q_1-self.q_1_0, self.q_2-self.q_2_0, self.q_3-self.q_3_0
 
+  def _rot_matrix_leg(self, eta_i, q_1, q_2, q_3):
+    R = np.zeros((3,3))
+    R[0,0] = cos(eta_i)*(sin(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i)) - \
+            cos(q_2)*cos(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1))) - \
+            sin(eta_i)*sin(q_2)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1))
+    R[1,0] = - cos(eta_i)*(sin(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1)) + \
+            cos(q_2)*cos(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i))) - \
+            sin(eta_i)*sin(q_2)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i))
+    R[2,0] = cos(q_2)*sin(eta_i) - cos(eta_i)*cos(q_3)*sin(q_2)
+
+    R[0,1] = - sin(eta_i)*(sin(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i)) - \
+            cos(q_2)*cos(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1))) - \
+            cos(eta_i)*sin(q_2)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1))
+    R[1,1] = sin(eta_i)*(sin(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1)) + \
+            cos(q_2)*cos(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i))) - \
+            cos(eta_i)*sin(q_2)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i))
+    R[2,1] = cos(eta_i)*cos(q_2) + cos(q_3)*sin(eta_i)*sin(q_2)
+
+    R[0,2] = - cos(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i)) - \
+            cos(q_2)*sin(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1))
+    R[1,2] = cos(q_3)*(sin(eta_i)*sin(q_1) - cos(eta_i)*cos(q_1)) - \
+            cos(q_2)*sin(q_3)*(cos(eta_i)*sin(q_1) + cos(q_1)*sin(eta_i))
+    R[2,2] = -sin(q_2)*sin(q_3)
+    return R
+
+  def _from_matrix_to_euler(self, R):
+    phi_1 = -atan2(R[1,2], R[2,2])
+    phi_2 = asin(R[0,2])
+    phi_3 = -atan2(R[0,1], R[0,0])
+    return phi_1, phi_2, phi_3
+  
+  def _fk_cost_func(self, x, q_11, q_21, q_22, q_23):
+    q_1 = np.array([q_11, x[1], x[3]])
+    q_2 = np.array([q_21, q_22, q_23])
+    q_3 = np.array([x[0], x[2], x[4]])
+    
+    eta_i = np.array([0, 2*pi/3, 4*pi/3])
+    R = []
+    for i in range(3):
+      rot = self._rot_matrix_leg(eta_i[i], q_1[i], q_2[i], q_3[i])
+      R.append(rot)
+
+    orient_err = 0
+    for i in range(len(R)//2+1):
+      for j in range(len(R)):
+        if i!=j and i<j:
+          R_err = R[i] - R[j]
+          for k in range(3):
+            orient_err += R_err[:,k].T @ R_err[:,k]
+    return orient_err
+
+  def forward_kinematics(self, q_11, q_21, q_22, q_23):
+    x0 = np.ones((5,)) * -pi/2
+    res = minimize(self._fk_cost_func, x0, args = (q_11, q_21, q_22, q_23), method='BFGS', jac = '2-point', tol=1e-50)
+    q_pass = res.x
+    self.q_1 = np.array([q_11, q_pass[1], q_pass[3]])
+    self.q_2 = np.array([q_21, q_22, q_23])
+    self.q_3 = np.array([q_pass[0], q_pass[2], q_pass[4]])
+    
+    R = self._rot_matrix_leg(self.eta_i[0], self.q_1[0], self.q_2[0], self.q_3[0])
+    phi_1, phi_2, phi_3 = self._from_matrix_to_euler(R)
+    self.phi_1 = phi_1
+    self.phi_2 = phi_2
+    self.phi_3 = phi_3
+    return phi_1, phi_2, phi_3
+
   def _J_leg(self, leg):
     s_eta_i = self.sc["s_eta_i"][leg]
     c_eta_i = self.sc["c_eta_i"][leg]
@@ -253,10 +320,24 @@ class Asymmetry_PSM(object):
     self.dphi_3 = dphi[2,0]
     return self.dphi_1, self.dphi_2, self.dphi_3
 
-  def inverse_diff_kinematics(self, dphi_1, dphi_2, dphi_3):
+  def inverse_diff_kinematics(self, dphi_1, dphi_2, dphi_3, phi_1 = None, phi_2 = None, phi_3 = None):
     self.dphi_1 = dphi_1
     self.dphi_2 = dphi_2
     self.dphi_3 = dphi_3
+
+    recalculate_inv_kin = False
+    if phi_1 is not None:
+      self.phi_1 = phi_1
+      recalculate_inv_kin = True
+    if phi_2 is not None:
+      self.phi_2 = phi_2
+      recalculate_inv_kin = True
+    if phi_3 is not None:
+      self.phi_3 = phi_3
+      recalculate_inv_kin = True
+
+    if recalculate_inv_kin:
+      _, _, _, = self.inverse_kinematics(self.phi_1, self.phi_2, self.phi_3)
 
     dphi = np.array([[dphi_1], [dphi_2], [dphi_3]])
     J_end = self._J_ee()
