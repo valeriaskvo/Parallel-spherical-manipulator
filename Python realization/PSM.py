@@ -244,6 +244,11 @@ class Asymmetry_PSM(object):
     return orient_err
 
   def forward_kinematics(self, q_11, q_21, q_22, q_23):
+    q_11 = q_11 + self.q_1_0[0]
+    q_21 = q_21 + self.q_2_0[0]
+    q_22 = q_22 + self.q_2_0[1]
+    q_23 = q_23 + self.q_2_0[2]
+
     x0 = np.ones((5,)) * -pi/2
     res = minimize(self._fk_cost_func, x0, args = (q_11, q_21, q_22, q_23), method='BFGS', jac = '2-point', tol=1e-50)
     q_pass = res.x

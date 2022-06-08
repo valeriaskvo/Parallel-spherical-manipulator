@@ -31,7 +31,7 @@ while t < t_max:
 
   q1, q2, q3 = psm.inverse_kinematics(phi_1, phi_2, phi_3)
   dq1, dq2, dq3 = psm.inverse_diff_kinematics(dphi_1, dphi_2, dphi_3)
-  phi_1_calc, phi_2_calc, phi_3_calc = psm.forward_kinematics(psm.q_1[0], psm.q_2[0], psm.q_2[1], psm.q_2[2])
+  phi_1_calc, phi_2_calc, phi_3_calc = psm.forward_kinematics(q1[0], q2[0], q2[1], q2[2])
   dphi_1_calc, dphi_2_calc, dphi_3_calc = psm.forward_diff_kinematics(dq1[0], dq2[0], dq2[1], dq2[2])
 
   data_t = np.hstack((np.array([t]), q2, dq2, np.array([phi_1_calc, phi_2_calc, phi_3_calc, dphi_1_calc, dphi_2_calc, dphi_3_calc])))
