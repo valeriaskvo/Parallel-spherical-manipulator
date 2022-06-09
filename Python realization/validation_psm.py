@@ -14,10 +14,10 @@ t_max = 20
 dt = 0.1
 
 traj_params_1 = {"A":np.deg2rad(20),
-                 "w":3*np.pi/t_max}
+               "w":np.pi}
 
 traj_params_2 = {"A":np.deg2rad(40),
-                 "w":6*np.pi/(t_max)}
+               "w":np.pi/2}
 
 psm = Asymmetry_PSM()
 while t < t_max:
@@ -44,18 +44,18 @@ while t < t_max:
   t += dt
 
 
-print("Done!")
-plt.plot(data[:,0], np.rad2deg(data[:, 1:4]))
-plt.xlabel('Time [sec]')
-plt.ylabel('Angle [deg]')
-plt.legend(['leg 1', 'leg 2', 'leg 3'])
-plt.show()
+# print("Done!")
+# plt.plot(data[:,0], np.rad2deg(data[:, 1:4]))
+# plt.xlabel('Time [sec]')
+# plt.ylabel('Angle [deg]')
+# plt.legend(['leg 1', 'leg 2', 'leg 3'])
+# plt.show()
 
-plt.plot(data[:,0], np.rad2deg(data[:, 4:7]))
-plt.xlabel('Time [sec]')
-plt.ylabel('Velocity [deg/sec]')
-plt.legend(['leg 1', 'leg 2', 'leg 3'])
-plt.show()
+# plt.plot(data[:,0], np.rad2deg(data[:, 4:7]))
+# plt.xlabel('Time [sec]')
+# plt.ylabel('Velocity [deg/sec]')
+# plt.legend(['leg 1', 'leg 2', 'leg 3'])
+# plt.show()
 
 plt.plot(data[:,0], np.rad2deg(data[:, 7:10]))
 plt.xlabel('Time [sec]')
@@ -68,3 +68,12 @@ plt.xlabel('Time [sec]')
 plt.ylabel('Velocity [deg/sec]')
 plt.legend(['dphi_1', 'dphi_2', 'dphi_3'])
 plt.show()
+
+plt.plot(data[:-1,0], np.diff(np.rad2deg(data[:, 10:13]), axis=0)/dt)
+plt.xlabel('Time [sec]')
+plt.ylabel('Velocity [deg/sec]')
+plt.legend(['dphi_1', 'dphi_2', 'dphi_3'])
+plt.show()
+
+print("Maximum velocity:", np.max(data[:, 10:13]))
+print("Maximum acceleration:", np.max( np.diff(data[:, 10:13], axis=0)/dt))
